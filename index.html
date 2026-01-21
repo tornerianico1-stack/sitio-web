@@ -8,15 +8,18 @@
 
   <style>
     :root{
-      --bg1:#0b0b0c;
-      --bg2:#111114;
-      --glass: rgba(10,10,12,.72);
-      --text:#f5f5f5;
-      --muted: rgba(255,255,255,.72);
-      --line: rgba(255,255,255,.14);
-      --card: rgba(255,255,255,.06);
+      /* =======================
+         CAMBIO: TEMA CLARO (FONDO BLANCO / LETRAS NEGRAS)
+         ======================= */
+      --bg1:#ffffff;                 /* CAMBIO */
+      --bg2:#ffffff;                 /* CAMBIO */
+      --glass: rgba(255,255,255,.88);/* CAMBIO */
+      --text:#0b0b0c;                /* CAMBIO */
+      --muted: rgba(0,0,0,.70);      /* CAMBIO */
+      --line: rgba(0,0,0,.14);       /* CAMBIO */
+      --card: rgba(0,0,0,.04);       /* CAMBIO */
       --radius: 16px;
-      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --shadow: 0 12px 30px rgba(0,0,0,.12); /* CAMBIO (sombra más suave para fondo blanco) */
       --container: 1100px;
       --pad: 20px;
     }
@@ -27,10 +30,7 @@
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(900px 500px at 20% 0%, rgba(255,255,255,.08), transparent 55%),
-        radial-gradient(800px 500px at 80% 10%, rgba(255,255,255,.05), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+      background: linear-gradient(180deg, var(--bg1), var(--bg2)); /* CAMBIO */
       line-height:1.55;
     }
     a{ color:inherit; text-decoration:none; }
@@ -43,7 +43,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: var(--glass);
+      background: var(--glass);                    /* CAMBIO */
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(10px);
     }
@@ -65,26 +65,24 @@
     }
 
     /* =======================
-       CAMBIO: LOGO BOX MÁS GRANDE Y ADAPTABLE (NO RECORTA)
-       - Subí tu logo a: /imagenes/logo.png
-       - Si se llama distinto, cambiá el src en el HTML.
+       CAMBIO: LOGO UN POCO MÁS GRANDE
        ======================= */
     .brand__logoBox{
-      width: clamp(72px, 7vw, 110px);   /* CAMBIO: más grande */
-      height: clamp(72px, 7vw, 110px);  /* CAMBIO: más grande */
+      width: clamp(82px, 7.5vw, 125px);   /* CAMBIO */
+      height: clamp(82px, 7.5vw, 125px);  /* CAMBIO */
       border-radius: 14px;
-      background: rgba(255,255,255,.06);
+      background: rgba(0,0,0,.03);        /* CAMBIO (se ve bien en tema claro) */
       border: 1px solid var(--line);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 8px;                    /* CAMBIO: padding para que el logo respire */
+      padding: 8px;
       flex: 0 0 auto;
     }
     .brand__logo{
       width: 100%;
       height: 100%;
-      object-fit: contain;             /* CAMBIO: no recorta, siempre entra */
+      object-fit: contain;
     }
 
     .brand__name{
@@ -113,7 +111,7 @@
     }
     .nav__link:hover{
       color: var(--text);
-      background: rgba(255,255,255,.08);
+      background: rgba(0,0,0,.05);        /* CAMBIO */
     }
 
     .wa{
@@ -123,14 +121,14 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(0,0,0,.04);        /* CAMBIO */
       color: var(--text);
       font-weight: 900;
       box-shadow: var(--shadow);
       transition: .15s ease;
       white-space: nowrap;
     }
-    .wa:hover{ background: rgba(255,255,255,.10); }
+    .wa:hover{ background: rgba(0,0,0,.07); } /* CAMBIO */
     .wa__text{ font-size: 13px; letter-spacing:.02em; }
 
     /* ===== SECTIONS ===== */
@@ -152,11 +150,13 @@
       line-height: 1.05;
       letter-spacing: -.02em;
       text-transform: uppercase;
+      color: var(--text);
     }
     h2{
       margin:0 0 10px;
       font-size: clamp(24px, 2.6vw, 34px);
       line-height: 1.12;
+      color: var(--text);
     }
     p{
       margin:0 0 14px;
@@ -164,7 +164,7 @@
       font-size: 16px;
     }
     .lead{
-      color: rgba(255,255,255,.86);
+      color: rgba(0,0,0,.82);            /* CAMBIO */
       font-size: 18px;
       max-width: 70ch;
     }
@@ -179,7 +179,7 @@
       min-height: 300px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: rgba(0,0,0,.03);       /* CAMBIO */
       box-shadow: var(--shadow);
       display:flex;
       align-items:flex-end;
@@ -192,8 +192,8 @@
       position:absolute;
       inset:0;
       background:
-        radial-gradient(700px 280px at 30% 20%, rgba(255,255,255,.12), transparent 55%),
-        radial-gradient(700px 280px at 70% 50%, rgba(255,255,255,.08), transparent 55%);
+        radial-gradient(700px 280px at 30% 20%, rgba(0,0,0,.06), transparent 55%), /* CAMBIO */
+        radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.04), transparent 55%);/* CAMBIO */
       pointer-events:none;
     }
     .hero__mediaContent{
@@ -214,20 +214,20 @@
       padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(0,0,0,.04);       /* CAMBIO */
       color: var(--text);
       font-weight: 900;
       font-size: 14px;
       transition: .15s ease;
     }
-    .btn:hover{ background: rgba(255,255,255,.10); }
+    .btn:hover{ background: rgba(0,0,0,.07); } /* CAMBIO */
     .btn--primary{
-      background: #ffffff;
-      color: #0b0b0c;
+      background: #0b0b0c;               /* CAMBIO (primario negro) */
+      color: #ffffff;                    /* CAMBIO */
       border-color: transparent;
       box-shadow: var(--shadow);
     }
-    .btn--primary:hover{ filter: brightness(.96); }
+    .btn--primary:hover{ filter: brightness(1.05); } /* CAMBIO */
 
     .grid2{
       display:grid;
@@ -243,16 +243,16 @@
     }
     .card{
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background: rgba(0,0,0,.02);       /* CAMBIO */
       border-radius: var(--radius);
       padding: 16px;
     }
     .card h3{ margin:0 0 6px; font-size: 18px; color: var(--text); }
-    .card p{ margin:0; font-size: 14px; color: rgba(255,255,255,.78); }
+    .card p{ margin:0; font-size: 14px; color: rgba(0,0,0,.75); } /* CAMBIO */
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
-      color: rgba(255,255,255,.78);
+      color: rgba(0,0,0,.75);            /* CAMBIO */
     }
     .list li{ margin: 8px 0; }
 
@@ -261,10 +261,10 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background: rgba(0,0,0,.03);       /* CAMBIO */
       font-weight: 900;
       font-size: 13px;
-      color: rgba(255,255,255,.85);
+      color: rgba(0,0,0,.85);            /* CAMBIO */
     }
 
     .split{
@@ -277,21 +277,21 @@
     .form{
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255,255,255,.04);
+      background: rgba(0,0,0,.02);       /* CAMBIO */
       padding: 16px;
     }
-    .label{ display:block; font-weight: 900; font-size: 13px; margin:0 0 10px; color: rgba(255,255,255,.86); }
+    .label{ display:block; font-weight: 900; font-size: 13px; margin:0 0 10px; color: rgba(0,0,0,.86); } /* CAMBIO */
     .input{
       width: 100%;
       margin-top: 6px;
       padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.25);
+      background: #ffffff;               /* CAMBIO */
       color: var(--text);
       outline: none;
     }
-    .input:focus{ border-color: rgba(255,255,255,.28); }
+    .input:focus{ border-color: rgba(0,0,0,.28); } /* CAMBIO */
 
     footer{
       padding: 26px 0;
@@ -322,25 +322,20 @@
     <div class="container topbar__inner">
 
       <a class="brand" href="#inicio" aria-label="Ir a inicio">
-        <!-- CAMBIO: logo desde carpeta /imagenes -->
         <div class="brand__logoBox">
-          <!-- EDITAR AQUI si tu logo tiene otro nombre -->
           <img class="brand__logo" src="imagenes/logo.png" alt="Logo TORNERIA DEVOTTO" />
         </div>
-
-        <!-- CAMBIO: nombre de empresa -->
         <span class="brand__name">TORNERIA DEVOTTO</span>
       </a>
 
-      <!-- CAMBIO: menu solicitado -->
       <nav class="nav" aria-label="Navegación principal">
         <a class="nav__link" href="#inicio">INICIO</a>
         <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
         <a class="nav__link" href="#servicios">SERVICIOS</a>
       </nav>
 
-      <!-- EDITAR AQUI: reemplazá TU_NUMERO por tu WhatsApp (ej: 59898123456) -->
-      <a class="wa" href="https://wa.me/TU_NUMERO" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+      <!-- CAMBIO: WhatsApp real -->
+      <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
           <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
           <path d="M12.6 11.2c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.4-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.2 3.2.1.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.7.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4l-2.1-1c-.2-.1-.4-.2-.6.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.4Z" fill="currentColor"/>
@@ -381,7 +376,7 @@
         <div class="hero__media" aria-label="Presentación">
           <div class="hero__mediaContent">
             <strong style="display:block; font-size:16px;">Capacidad instalada</strong>
-            <p style="margin:6px 0 0; color:rgba(255,255,255,.78);">
+            <p style="margin:6px 0 0; color:rgba(0,0,0,.75);">
               Tornos (incluye CNC), fresadoras, escoplos, cepillos industriales, balancines,
               equipos de corte/soldadura/prensas, y tratamientos de endurecimiento.
             </p>
@@ -531,17 +526,16 @@
           Si tienen interés, puedo visitarlos en planta cuando ustedes dispongan para comentar detalles,
           responder consultas y relevar necesidades in situ.
         </p>
-        <p style="color:rgba(255,255,255,.82); font-weight:800;">
-          Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#fff;">Ing. Nicolás Devotto</span>.
+        <p style="color:rgba(0,0,0,.82); font-weight:900;">
+          Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#000;">Ing. Nicolás Devotto</span>.
         </p>
 
         <div class="split">
           <div>
             <div class="pillrow">
-              <!-- EDITAR AQUI: teléfono / email / WhatsApp -->
-              <a class="pill" href="tel:+59800000000">Tel: +598 00 000 000</a>
-              <a class="pill" href="mailto:info@torneriadevotto.com">info@torneriadevotto.com</a>
-              <a class="pill" href="https://wa.me/TU_NUMERO" target="_blank" rel="noopener">WhatsApp</a>
+              <!-- CAMBIO: email y WhatsApp reales -->
+              <a class="pill" href="mailto:torneriadevotto1@gmail.com">torneriadevotto1@gmail.com</a> <!-- CAMBIO -->
+              <a class="pill" href="https://wa.me/59891711017" target="_blank" rel="noopener">WhatsApp: +598 91 711 017</a> <!-- CAMBIO -->
             </div>
             <p style="margin-top:14px;">
               Si preferís, enviá por WhatsApp una foto/medidas o una breve descripción del trabajo a realizar.
@@ -565,7 +559,7 @@
             </label>
 
             <button class="btn btn--primary" type="button">Enviar</button>
-            <p style="margin-top:10px; font-size:13px; color:rgba(255,255,255,.65);">
+            <p style="margin-top:10px; font-size:13px; color:rgba(0,0,0,.60);">
               (Luego conectamos este formulario a email o envío directo a WhatsApp.)
             </p>
           </form>
