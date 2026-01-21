@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tu Empresa</title>
-  <meta name="description" content="Descripción breve de tu empresa/servicio." />
+  <title>TORNERIA DEVOTTO</title>
+  <meta name="description" content="Tornería y mecanizado industrial. Fabricación y reparación de piezas, mantenimiento y soluciones para la industria." />
 
   <style>
     :root{
@@ -31,14 +31,14 @@
         radial-gradient(900px 500px at 20% 0%, rgba(255,255,255,.08), transparent 55%),
         radial-gradient(800px 500px at 80% 10%, rgba(255,255,255,.05), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
-      line-height:1.5;
+      line-height:1.55;
     }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
 
     .container{ max-width: var(--container); margin:0 auto; padding:0 var(--pad); }
 
-    /* ===== TOPBAR ===== */
+    /* ===== TOPBAR / MENU ===== */
     .topbar{
       position: sticky;
       top: 0;
@@ -59,23 +59,39 @@
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
       color:var(--text);
-      min-width: 200px;
+      min-width: 240px;
     }
-    .brand__logo{
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      border-radius: 12px;
+
+    /* =======================
+       CAMBIO: LOGO BOX MÁS GRANDE Y ADAPTABLE (NO RECORTA)
+       - Subí tu logo a: /imagenes/logo.png
+       - Si se llama distinto, cambiá el src en el HTML.
+       ======================= */
+    .brand__logoBox{
+      width: clamp(58px, 6vw, 86px);   /* CAMBIO: más grande */
+      height: clamp(58px, 6vw, 86px);  /* CAMBIO: más grande */
+      border-radius: 14px;
       background: rgba(255,255,255,.06);
       border: 1px solid var(--line);
-      padding: 6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px;                    /* CAMBIO: padding para que el logo respire */
+      flex: 0 0 auto;
     }
+    .brand__logo{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;             /* CAMBIO: no recorta, siempre entra */
+    }
+
     .brand__name{
-      font-weight: 900;
-      letter-spacing: .2px;
+      font-weight: 950;
+      letter-spacing: .4px;
       white-space: nowrap;
+      text-transform: uppercase;
     }
 
     .nav{
@@ -135,11 +151,12 @@
       font-size: clamp(32px, 4vw, 52px);
       line-height: 1.05;
       letter-spacing: -.02em;
+      text-transform: uppercase;
     }
     h2{
       margin:0 0 10px;
       font-size: clamp(24px, 2.6vw, 34px);
-      line-height: 1.1;
+      line-height: 1.12;
     }
     p{
       margin:0 0 14px;
@@ -149,17 +166,17 @@
     .lead{
       color: rgba(255,255,255,.86);
       font-size: 18px;
-      max-width: 60ch;
+      max-width: 70ch;
     }
 
     .hero{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.15fr .85fr;
       gap: 24px;
       align-items:center;
     }
     .hero__media{
-      min-height: 280px;
+      min-height: 300px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
       background: rgba(255,255,255,.04);
@@ -167,6 +184,21 @@
       display:flex;
       align-items:flex-end;
       padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__media::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(700px 280px at 30% 20%, rgba(255,255,255,.12), transparent 55%),
+        radial-gradient(700px 280px at 70% 50%, rgba(255,255,255,.08), transparent 55%);
+      pointer-events:none;
+    }
+    .hero__mediaContent{
+      position: relative;
+      z-index: 1;
     }
 
     .actions{
@@ -197,6 +229,12 @@
     }
     .btn--primary:hover{ filter: brightness(.96); }
 
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -209,16 +247,15 @@
       border-radius: var(--radius);
       padding: 16px;
     }
-    .card h3{ margin:0 0 6px; font-size: 18px; }
+    .card h3{ margin:0 0 6px; font-size: 18px; color: var(--text); }
     .card p{ margin:0; font-size: 14px; color: rgba(255,255,255,.78); }
-
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items:start;
-      margin-top: 14px;
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.78);
     }
+    .list li{ margin: 8px 0; }
+
     .pillrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
     .pill{
       padding: 10px 12px;
@@ -227,15 +264,23 @@
       background: rgba(255,255,255,.05);
       font-weight: 900;
       font-size: 13px;
+      color: rgba(255,255,255,.85);
     }
 
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items:start;
+      margin-top: 14px;
+    }
     .form{
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: rgba(255,255,255,.04);
       padding: 16px;
     }
-    .label{ display:block; font-weight: 900; font-size: 13px; margin:0 0 10px; }
+    .label{ display:block; font-weight: 900; font-size: 13px; margin:0 0 10px; color: rgba(255,255,255,.86); }
     .input{
       width: 100%;
       margin-top: 6px;
@@ -263,6 +308,7 @@
     @media (max-width: 980px){
       .hero{ grid-template-columns: 1fr; }
       .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
       .split{ grid-template-columns: 1fr; }
       .wa__text{ display:none; }
       .brand{ min-width: auto; }
@@ -274,17 +320,26 @@
   <!-- MENU / TOPBAR -->
   <header class="topbar">
     <div class="container topbar__inner">
+
       <a class="brand" href="#inicio" aria-label="Ir a inicio">
-        <img class="brand__logo" src="imagenes/logo.png" alt="Logo" />
-        <span class="brand__name">Tu Empresa</span>
+        <!-- CAMBIO: logo desde carpeta /imagenes -->
+        <div class="brand__logoBox">
+          <!-- EDITAR AQUI si tu logo tiene otro nombre -->
+          <img class="brand__logo" src="imagenes/logo.png" alt="Logo TORNERIA DEVOTTO" />
+        </div>
+
+        <!-- CAMBIO: nombre de empresa -->
+        <span class="brand__name">TORNERIA DEVOTTO</span>
       </a>
 
+      <!-- CAMBIO: menu solicitado -->
       <nav class="nav" aria-label="Navegación principal">
         <a class="nav__link" href="#inicio">INICIO</a>
         <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
         <a class="nav__link" href="#servicios">SERVICIOS</a>
       </nav>
 
+      <!-- EDITAR AQUI: reemplazá TU_NUMERO por tu WhatsApp (ej: 59898123456) -->
       <a class="wa" href="https://wa.me/TU_NUMERO" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
           <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
@@ -292,6 +347,7 @@
         </svg>
         <span class="wa__text">WhatsApp</span>
       </a>
+
     </div>
   </header>
 
@@ -300,61 +356,167 @@
     <section>
       <div class="container hero">
         <div>
-          <p class="kicker">Tu rubro / tu especialidad</p>
-          <h1>Título principal corto</h1>
-          <p class="lead">Frase clara de qué hacés, para quién, y por qué elegirte.</p>
+          <p class="kicker">Taller metalúrgico familiar | Desde los 80s</p>
+          <h1>TORNERIA DEVOTTO</h1>
+          <p class="lead">
+            Torneria Devotto es una pequeña empresa familiar que nace a inicios de los 1980s como un pequeño taller,
+            orientado a la fabricación de implementos y repuestos de equipos: piezas que no se conseguían, mejoras de diseño,
+            o fabricación a costos más económicos, siempre con la tendencia a mejorar el producto para que dure lo máximo posible
+            y mejore su funcionamiento.
+          </p>
 
           <div class="actions">
-            <a class="btn btn--primary" href="#contacto">Pedir presupuesto</a>
+            <a class="btn btn--primary" href="#contacto">Contactar</a>
             <a class="btn" href="#servicios">Ver servicios</a>
+          </div>
+
+          <div class="pillrow" aria-label="Atributos">
+            <span class="pill">Fabricación</span>
+            <span class="pill">Reparación</span>
+            <span class="pill">Industria 365</span>
+            <span class="pill">Ingeniería</span>
           </div>
         </div>
 
-        <div class="hero__media" aria-label="Bloque visual">
-          <div>
-            <strong>Bloque visual</strong>
-            <p style="margin:6px 0 0;">Después ponemos una foto real o imagen del taller.</p>
+        <div class="hero__media" aria-label="Presentación">
+          <div class="hero__mediaContent">
+            <strong style="display:block; font-size:16px;">Capacidad instalada</strong>
+            <p style="margin:6px 0 0; color:rgba(255,255,255,.78);">
+              Tornos (incluye CNC), fresadoras, escoplos, cepillos industriales, balancines,
+              equipos de corte/soldadura/prensas, y tratamientos de endurecimiento.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SOBRE -->
+    <!-- SOBRE NOSOTROS -->
     <section id="sobre">
       <div class="container">
         <p class="kicker">Sobre nosotros</p>
-        <h2>Quiénes somos</h2>
+        <h2>De dónde venimos y cómo trabajamos</h2>
         <p>
-          Texto corto: desde cuándo trabajan, qué tipo de trabajos hacen y qué zona cubren.
+          Nuestra orientación histórica es resolver necesidades reales: fabricar repuestos difíciles de conseguir,
+          mejorar diseños cuando corresponde, y optimizar costos sin sacrificar durabilidad. Buscamos que cada pieza
+          tenga la mayor vida útil posible y aporte a un mejor funcionamiento del equipo.
         </p>
-        <div class="pillrow">
-          <span class="pill">Experiencia</span>
-          <span class="pill">Calidad</span>
-          <span class="pill">Atención directa</span>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Personal</h3>
+            <p>
+              Contamos con un plantel constante y disponible para la industria. Nuestro funcionamiento es 365,
+              siempre a la orden para solucionar.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Calidad y proceso</h3>
+            <p>
+              Contamos con sistema de trazabilidad interna y control de proceso, además de controles de calidad
+              aplicados a cada producto.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICIOS -->
+    <!-- SERVICIOS (incluye productos + servicios) -->
     <section id="servicios">
       <div class="container">
         <p class="kicker">Servicios</p>
         <h2>Qué hacemos</h2>
-        <p>Lista corta. Luego lo expandimos o lo pasamos a otra página.</p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Productos (fabricación y reparación)</h3>
+            <p>
+              Nuestro alcance es amplio: toda pieza que necesite ser fabricada o reparada,
+              en el 90% de los casos la realizamos mediante torneado, fresado, plegado,
+              embutido, corte, doblado, soldado, entre otros procesos.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Servicios habituales</h3>
+            <ul class="list">
+              <li>Mantenimiento de reductores (fabricación propia de componentes si se requiere).</li>
+              <li>Mantenimiento de motores.</li>
+              <li>Mantenimiento de turbinas con balanceo estático y dinámico.</li>
+              <li>Mantenimiento de partes de máquinas (reparación y ajuste integral).</li>
+              <li>Recepción de equipos desmontados: desmonte, mantenimiento, reparación y montaje en taller.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>Equipos e instalaciones (resumen)</h3>
+          <ul class="list">
+            <li><strong>15 tornos</strong> (5 CNC). Desde tamaños chicos hasta 4 m EP y 1.2 m de diámetro.</li>
+            <li><strong>10 fresadoras</strong>, algunas con particularidades para mayor calidad y rapidez. Mesas hasta 12 toneladas.</li>
+            <li><strong>2 escoplos</strong> (uno mediano y otro de gran tamaño).</li>
+            <li><strong>1 cepillo industrial</strong>.</li>
+            <li><strong>10 balancines mecánicos</strong> de distintas toneladas.</li>
+            <li>Equipos de corte, soldadura, prensas varias, dobladoras de caño sin arrugas, aboquillado, valonado, etc.</li>
+            <li>Equipos de endurecimiento para distintas aplicaciones.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODALIDADES (M1..M5) -->
+    <section id="modalidades">
+      <div class="container">
+        <p class="kicker">Sistemas de trabajo</p>
+        <h2>5 modalidades disponibles</h2>
+        <p>
+          Hemos desarrollado 5 modalidades de trabajo propias que ponemos a disposición según la necesidad operativa
+          y la estrategia de mantenimiento preventivo.
+        </p>
 
         <div class="grid3">
           <article class="card">
-            <h3>Servicio 1</h3>
-            <p>Descripción breve (1–2 líneas).</p>
+            <h3>M1</h3>
+            <p>
+              Almacén físico a nuestro cargo: brinda el repuesto en forma inmediata con previo diseño de mantenimiento preventivo.
+            </p>
           </article>
           <article class="card">
-            <h3>Servicio 2</h3>
-            <p>Descripción breve (1–2 líneas).</p>
+            <h3>M2</h3>
+            <p>
+              Almacén físico a nuestro cargo de semiterminado: repuesto casi inmediato con previo diseño de mantenimiento preventivo.
+            </p>
           </article>
           <article class="card">
-            <h3>Servicio 3</h3>
-            <p>Descripción breve (1–2 líneas).</p>
+            <h3>M3</h3>
+            <p>
+              Almacén virtual a nuestro cargo: repuesto en forma rápida con previo diseño de mantenimiento preventivo.
+            </p>
           </article>
+          <article class="card">
+            <h3>M4</h3>
+            <p>
+              Fabricación según muestra o plano con tiempos normales de procesamiento.
+            </p>
+          </article>
+          <article class="card">
+            <h3>M5</h3>
+            <p>
+              Fabricación rápida en modo urgencia.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Trazabilidad</h3>
+            <p>
+              Sistema de control de proceso interno + controles de calidad por producto para asegurar consistencia y seguimiento.
+            </p>
+          </article>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>Oficina de ingeniería</h3>
+          <p>
+            Contamos con oficina de ingeniería que brinda apoyo técnico en todos los desafíos que encaramos.
+          </p>
         </div>
       </div>
     </section>
@@ -363,18 +525,26 @@
     <section id="contacto">
       <div class="container">
         <p class="kicker">Contacto</p>
-        <h2>Hablemos</h2>
-        <p>Podés llamarnos o escribir por WhatsApp. También dejamos un formulario simple.</p>
+        <h2>Coordinemos una visita en planta</h2>
+        <p>
+          En esta descripción se presenta en forma general lo que hacemos y de dónde venimos.
+          Si tienen interés, puedo visitarlos en planta cuando ustedes dispongan para comentar detalles,
+          responder consultas y relevar necesidades in situ.
+        </p>
+        <p style="color:rgba(255,255,255,.82); font-weight:800;">
+          Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#fff;">Ing. Nicolás Devotto</span>.
+        </p>
 
         <div class="split">
           <div>
             <div class="pillrow">
+              <!-- EDITAR AQUI: teléfono / email / WhatsApp -->
               <a class="pill" href="tel:+59800000000">Tel: +598 00 000 000</a>
-              <a class="pill" href="mailto:info@tuempresa.com">info@tuempresa.com</a>
+              <a class="pill" href="mailto:info@torneriadevotto.com">info@torneriadevotto.com</a>
               <a class="pill" href="https://wa.me/TU_NUMERO" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <p style="margin-top:14px;">
-              Consejo: luego conectamos el formulario a email (Netlify) o lo mandamos directo a WhatsApp.
+              Si preferís, enviá por WhatsApp una foto/medidas o una breve descripción del trabajo a realizar.
             </p>
           </div>
 
@@ -385,11 +555,19 @@
             </label>
 
             <label class="label">
+              Empresa (opcional)
+              <input class="input" type="text" placeholder="Nombre de empresa" />
+            </label>
+
+            <label class="label">
               Mensaje
-              <textarea class="input" rows="4" placeholder="¿Qué necesitás?"></textarea>
+              <textarea class="input" rows="4" placeholder="Contanos qué necesitás (pieza / reparación / mantenimiento)"></textarea>
             </label>
 
             <button class="btn btn--primary" type="button">Enviar</button>
+            <p style="margin-top:10px; font-size:13px; color:rgba(255,255,255,.65);">
+              (Luego conectamos este formulario a email o envío directo a WhatsApp.)
+            </p>
           </form>
         </div>
       </div>
@@ -397,7 +575,7 @@
 
     <footer>
       <div class="container footer__inner">
-        <div><strong style="color:var(--text);">Tu Empresa</strong></div>
+        <div><strong style="color:var(--text);">TORNERIA DEVOTTO</strong></div>
         <div>© <span id="year"></span></div>
       </div>
     </footer>
