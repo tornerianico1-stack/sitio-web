@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu Empresa</title>
+  <meta name="description" content="Descripción breve de tu empresa/servicio." />
+</head>
+
+<body>
+  <!-- HEADER / NAV -->
+  <header>
+    <div>
+      <a href="#inicio">Tu Empresa</a>
+
+      <nav aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="inicio">
+    <section>
+      <h1>Título principal</h1>
+      <p>Una frase corta que explique qué hacés y para quién.</p>
+
+      <p>
+        <a href="#contacto">Pedir presupuesto</a>
+        <a href="#servicios">Ver servicios</a>
+      </p>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <h2>Servicios</h2>
+      <p>Listado breve. Luego lo hacemos más completo o lo pasamos a otra página.</p>
+
+      <ul>
+        <li><strong>Servicio 1:</strong> descripción corta.</li>
+        <li><strong>Servicio 2:</strong> descripción corta.</li>
+        <li><strong>Servicio 3:</strong> descripción corta.</li>
+      </ul>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>Escribinos y te respondemos.</p>
+
+      <ul>
+        <li><a href="tel:+59800000000">Tel: +598 00 000 000</a></li>
+        <li><a href="mailto:info@tuempresa.com">info@tuempresa.com</a></li>
+        <li><a href="https://wa.me/59800000000" target="_blank" rel="noopener">WhatsApp</a></li>
+      </ul>
+
+      <form>
+        <p>
+          <label>
+            Nombre<br />
+            <input type="text" name="nombre" placeholder="Tu nombre" />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Mensaje<br />
+            <textarea name="mensaje" rows="4" placeholder="¿Qué necesitás?"></textarea>
+          </label>
+        </p>
+
+        <button type="button">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <small>© <span id="year">2026</span> Tu Empresa</small>
+  </footer>
+</body>
+</html>
