@@ -8,18 +8,16 @@
 
   <style>
     :root{
-      /* =======================
-         CAMBIO: TEMA CLARO (FONDO BLANCO / LETRAS NEGRAS)
-         ======================= */
-      --bg1:#ffffff;                 /* CAMBIO */
-      --bg2:#ffffff;                 /* CAMBIO */
-      --glass: rgba(255,255,255,.88);/* CAMBIO */
-      --text:#0b0b0c;                /* CAMBIO */
-      --muted: rgba(0,0,0,.70);      /* CAMBIO */
-      --line: rgba(0,0,0,.14);       /* CAMBIO */
-      --card: rgba(0,0,0,.04);       /* CAMBIO */
+      /* TEMA CLARO */
+      --bg1:#ffffff;
+      --bg2:#ffffff;
+      --glass: rgba(255,255,255,.88);
+      --text:#0b0b0c;
+      --muted: rgba(0,0,0,.70);
+      --line: rgba(0,0,0,.14);
+      --card: rgba(0,0,0,.04);
       --radius: 16px;
-      --shadow: 0 12px 30px rgba(0,0,0,.12); /* CAMBIO (sombra más suave para fondo blanco) */
+      --shadow: 0 12px 30px rgba(0,0,0,.12);
       --container: 1100px;
       --pad: 20px;
     }
@@ -30,7 +28,7 @@
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      background: linear-gradient(180deg, var(--bg1), var(--bg2)); /* CAMBIO */
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
       line-height:1.55;
     }
     a{ color:inherit; text-decoration:none; }
@@ -38,12 +36,12 @@
 
     .container{ max-width: var(--container); margin:0 auto; padding:0 var(--pad); }
 
-    /* ===== TOPBAR / MENU ===== */
+    /* ===== TOPBAR / MENU (DESKTOP INTACTO) ===== */
     .topbar{
       position: sticky;
       top: 0;
       z-index: 50;
-      background: var(--glass);                    /* CAMBIO */
+      background: var(--glass);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(10px);
     }
@@ -64,14 +62,12 @@
       min-width: 240px;
     }
 
-    /* =======================
-       CAMBIO: LOGO UN POCO MÁS GRANDE
-       ======================= */
+    /* LOGO */
     .brand__logoBox{
-      width: clamp(82px, 7.5vw, 125px);   /* CAMBIO */
-      height: clamp(82px, 7.5vw, 125px);  /* CAMBIO */
+      width: clamp(82px, 7.5vw, 125px);
+      height: clamp(82px, 7.5vw, 125px);
       border-radius: 14px;
-      background: rgba(0,0,0,.03);        /* CAMBIO (se ve bien en tema claro) */
+      background: rgba(0,0,0,.03);
       border: 1px solid var(--line);
       display:flex;
       align-items:center;
@@ -111,7 +107,7 @@
     }
     .nav__link:hover{
       color: var(--text);
-      background: rgba(0,0,0,.05);        /* CAMBIO */
+      background: rgba(0,0,0,.05);
     }
 
     .wa{
@@ -121,15 +117,33 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.04);        /* CAMBIO */
+      background: rgba(0,0,0,.04);
       color: var(--text);
       font-weight: 900;
       box-shadow: var(--shadow);
       transition: .15s ease;
       white-space: nowrap;
     }
-    .wa:hover{ background: rgba(0,0,0,.07); } /* CAMBIO */
+    .wa:hover{ background: rgba(0,0,0,.07); }
     .wa__text{ font-size: 13px; letter-spacing:.02em; }
+
+    /* ===== MENU MOBILE (NUEVO, NO TOCA DESKTOP) ===== */
+    .nav-toggle{
+      display:none; /* desktop: oculto */
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.04);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 950;
+      cursor: pointer;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .nav-toggle:focus{
+      outline: 2px solid rgba(0,0,0,.25);
+      outline-offset: 2px;
+    }
 
     /* ===== SECTIONS ===== */
     section{
@@ -164,7 +178,7 @@
       font-size: 16px;
     }
     .lead{
-      color: rgba(0,0,0,.82);            /* CAMBIO */
+      color: rgba(0,0,0,.82);
       font-size: 18px;
       max-width: 70ch;
     }
@@ -179,7 +193,7 @@
       min-height: 300px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.03);       /* CAMBIO */
+      background: rgba(0,0,0,.03);
       box-shadow: var(--shadow);
       display:flex;
       align-items:flex-end;
@@ -192,14 +206,11 @@
       position:absolute;
       inset:0;
       background:
-        radial-gradient(700px 280px at 30% 20%, rgba(0,0,0,.06), transparent 55%), /* CAMBIO */
-        radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.04), transparent 55%);/* CAMBIO */
+        radial-gradient(700px 280px at 30% 20%, rgba(0,0,0,.06), transparent 55%),
+        radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.04), transparent 55%);
       pointer-events:none;
     }
-    .hero__mediaContent{
-      position: relative;
-      z-index: 1;
-    }
+    .hero__mediaContent{ position: relative; z-index: 1; }
 
     .actions{
       display:flex;
@@ -214,20 +225,20 @@
       padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.04);       /* CAMBIO */
+      background: rgba(0,0,0,.04);
       color: var(--text);
       font-weight: 900;
       font-size: 14px;
       transition: .15s ease;
     }
-    .btn:hover{ background: rgba(0,0,0,.07); } /* CAMBIO */
+    .btn:hover{ background: rgba(0,0,0,.07); }
     .btn--primary{
-      background: #0b0b0c;               /* CAMBIO (primario negro) */
-      color: #ffffff;                    /* CAMBIO */
+      background: #0b0b0c;
+      color: #ffffff;
       border-color: transparent;
       box-shadow: var(--shadow);
     }
-    .btn--primary:hover{ filter: brightness(1.05); } /* CAMBIO */
+    .btn--primary:hover{ filter: brightness(1.05); }
 
     .grid2{
       display:grid;
@@ -243,16 +254,16 @@
     }
     .card{
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.02);       /* CAMBIO */
+      background: rgba(0,0,0,.02);
       border-radius: var(--radius);
       padding: 16px;
     }
     .card h3{ margin:0 0 6px; font-size: 18px; color: var(--text); }
-    .card p{ margin:0; font-size: 14px; color: rgba(0,0,0,.75); } /* CAMBIO */
+    .card p{ margin:0; font-size: 14px; color: rgba(0,0,0,.75); }
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
-      color: rgba(0,0,0,.75);            /* CAMBIO */
+      color: rgba(0,0,0,.75);
     }
     .list li{ margin: 8px 0; }
 
@@ -261,10 +272,10 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.03);       /* CAMBIO */
+      background: rgba(0,0,0,.03);
       font-weight: 900;
       font-size: 13px;
-      color: rgba(0,0,0,.85);            /* CAMBIO */
+      color: rgba(0,0,0,.85);
     }
 
     .split{
@@ -277,25 +288,29 @@
     .form{
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(0,0,0,.02);       /* CAMBIO */
+      background: rgba(0,0,0,.02);
       padding: 16px;
     }
-    .label{ display:block; font-weight: 900; font-size: 13px; margin:0 0 10px; color: rgba(0,0,0,.86); } /* CAMBIO */
+    .label{
+      display:block;
+      font-weight: 900;
+      font-size: 13px;
+      margin:0 0 10px;
+      color: rgba(0,0,0,.86);
+    }
     .input{
       width: 100%;
       margin-top: 6px;
       padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid var(--line);
-      background: #ffffff;               /* CAMBIO */
+      background: #ffffff;
       color: var(--text);
       outline: none;
     }
-    .input:focus{ border-color: rgba(0,0,0,.28); } /* CAMBIO */
+    .input:focus{ border-color: rgba(0,0,0,.28); }
 
-    footer{
-      padding: 26px 0;
-    }
+    footer{ padding: 26px 0; }
     .footer__inner{
       display:flex;
       justify-content:space-between;
@@ -305,13 +320,65 @@
       color: var(--muted);
     }
 
-    @media (max-width: 980px){
+    /* =======================
+       MOBILE (ESTÉTICO)
+       - SOLO AGREGA/OVERRIDES EN PANTALLA CHICA
+       - NO MODIFICA DESKTOP
+       ======================= */
+    @media (max-width: 820px){
+      /* Header: orden prolijo */
+      .topbar__inner{
+        align-items:flex-start;
+        gap: 10px;
+      }
+
+      /* Botón menú visible en móvil */
+      .nav-toggle{ display:inline-flex; }
+
+      /* Navegación colapsada por defecto */
+      .nav{
+        display:none;
+        width:100%;
+        padding-top: 8px;
+        justify-content:flex-start;
+      }
+      .nav.is-open{
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap: 8px;
+        padding-bottom: 10px;
+      }
+
+      /* Links en “bloques” clickeables */
+      .nav__link{
+        background: rgba(0,0,0,.03);
+        border: 1px solid var(--line);
+        padding: 12px 12px;
+      }
+
+      /* WhatsApp: solo ícono (queda elegante) */
+      .wa__text{ display:none; }
+      .wa{ padding: 10px 10px; }
+
+      /* Logo y nombre: que no se rompa */
+      .brand{ min-width:auto; }
+      .brand__name{ font-size: 14px; letter-spacing:.08em; }
+
+      /* Contenido */
+      section{ padding: 44px 0; }
       .hero{ grid-template-columns: 1fr; }
+      .hero__media{ min-height: 220px; }
+
+      /* Botones full-width opcional */
+      .actions a.btn{
+        width: 100%;
+        justify-content:center;
+      }
+
       .grid3{ grid-template-columns: 1fr; }
       .grid2{ grid-template-columns: 1fr; }
       .split{ grid-template-columns: 1fr; }
-      .wa__text{ display:none; }
-      .brand{ min-width: auto; }
     }
   </style>
 </head>
@@ -328,13 +395,17 @@
         <span class="brand__name">TORNERIA DEVOTTO</span>
       </a>
 
-      <nav class="nav" aria-label="Navegación principal">
+      <!-- Botón menú (solo se ve en móvil) -->
+      <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
+
+      <!-- Nav (desktop igual, en móvil se colapsa) -->
+      <nav id="mainnav" class="nav" aria-label="Navegación principal">
         <a class="nav__link" href="#inicio">INICIO</a>
         <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
         <a class="nav__link" href="#servicios">SERVICIOS</a>
+        <a class="nav__link" href="#contacto">CONTACTO</a>
       </nav>
 
-      <!-- CAMBIO: WhatsApp real -->
       <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
           <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
@@ -415,7 +486,7 @@
       </div>
     </section>
 
-    <!-- SERVICIOS (incluye productos + servicios) -->
+    <!-- SERVICIOS -->
     <section id="servicios">
       <div class="container">
         <p class="kicker">Servicios</p>
@@ -458,7 +529,7 @@
       </div>
     </section>
 
-    <!-- MODALIDADES (M1..M5) -->
+    <!-- MODALIDADES -->
     <section id="modalidades">
       <div class="container">
         <p class="kicker">Sistemas de trabajo</p>
@@ -471,47 +542,33 @@
         <div class="grid3">
           <article class="card">
             <h3>M1</h3>
-            <p>
-              Almacén físico a nuestro cargo: brinda el repuesto en forma inmediata con previo diseño de mantenimiento preventivo.
-            </p>
+            <p>Almacén físico a nuestro cargo: repuesto inmediato con previo diseño de mantenimiento preventivo.</p>
           </article>
           <article class="card">
             <h3>M2</h3>
-            <p>
-              Almacén físico a nuestro cargo de semiterminado: repuesto casi inmediato con previo diseño de mantenimiento preventivo.
-            </p>
+            <p>Almacén físico semiterminado: repuesto casi inmediato con previo diseño de mantenimiento preventivo.</p>
           </article>
           <article class="card">
             <h3>M3</h3>
-            <p>
-              Almacén virtual a nuestro cargo: repuesto en forma rápida con previo diseño de mantenimiento preventivo.
-            </p>
+            <p>Almacén virtual: repuesto rápido con previo diseño de mantenimiento preventivo.</p>
           </article>
           <article class="card">
             <h3>M4</h3>
-            <p>
-              Fabricación según muestra o plano con tiempos normales de procesamiento.
-            </p>
+            <p>Fabricación según muestra o plano con tiempos normales de procesamiento.</p>
           </article>
           <article class="card">
             <h3>M5</h3>
-            <p>
-              Fabricación rápida en modo urgencia.
-            </p>
+            <p>Fabricación rápida en modo urgencia.</p>
           </article>
           <article class="card">
             <h3>Trazabilidad</h3>
-            <p>
-              Sistema de control de proceso interno + controles de calidad por producto para asegurar consistencia y seguimiento.
-            </p>
+            <p>Control de proceso interno + controles de calidad por producto.</p>
           </article>
         </div>
 
         <div class="card" style="margin-top:14px;">
           <h3>Oficina de ingeniería</h3>
-          <p>
-            Contamos con oficina de ingeniería que brinda apoyo técnico en todos los desafíos que encaramos.
-          </p>
+          <p>Contamos con oficina de ingeniería que brinda apoyo técnico en todos los desafíos que encaramos.</p>
         </div>
       </div>
     </section>
@@ -533,9 +590,8 @@
         <div class="split">
           <div>
             <div class="pillrow">
-              <!-- CAMBIO: email y WhatsApp reales -->
-              <a class="pill" href="mailto:torneriadevotto1@gmail.com">torneriadevotto1@gmail.com</a> <!-- CAMBIO -->
-              <a class="pill" href="https://wa.me/59891711017" target="_blank" rel="noopener">WhatsApp: +598 91 711 017</a> <!-- CAMBIO -->
+              <a class="pill" href="mailto:torneriadevotto1@gmail.com">torneriadevotto1@gmail.com</a>
+              <a class="pill" href="https://wa.me/59891711017" target="_blank" rel="noopener">WhatsApp: +598 91 711 017</a>
             </div>
             <p style="margin-top:14px;">
               Si preferís, enviá por WhatsApp una foto/medidas o una breve descripción del trabajo a realizar.
@@ -576,6 +632,28 @@
   </main>
 
   <script>
+    // Menú móvil (solo afecta cuando el CSS lo colapsa)
+    const toggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector("#mainnav");
+
+    if (toggle && nav) {
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+
+      // Cerrar menú al tocar un link (móvil)
+      nav.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 820px)").matches) {
+            nav.classList.remove("is-open");
+            toggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      });
+    }
+
+    // Año
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
