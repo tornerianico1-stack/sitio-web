@@ -4,8 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>TORNERIA DEVOTTO</title>
-  <meta name="description" content="Tornería y mecanizado industrial. Fabricación y reparación de piezas, mantenimiento y soluciones para la industria." />
+
+  <!-- SEO básico recomendado -->
+  <title>Tornería Devotto | Mecanizado Industrial y Torneado CNC</title>
+  <meta name="description" content="Tornería Devotto: mecanizado industrial, torneado CNC, fresado, fabricación y reparación de piezas, mantenimiento y soluciones para la industria." />
+  <link rel="canonical" href="https://www.torneriadevotto.com/" />
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Tornería Devotto",
+    "url": "https://www.torneriadevotto.com/",
+    "telephone": "+59891711017",
+    "email": "torneriadevotto1@gmail.com"
+  }
+  </script>
 
   <style>
     :root{
@@ -323,20 +338,13 @@
 
     /* =======================
        MOBILE (ESTÉTICO)
-       - SOLO AGREGA/OVERRIDES EN PANTALLA CHICA
-       - NO MODIFICA DESKTOP
        ======================= */
     @media (max-width: 820px){
-      /* Header: orden prolijo */
       .topbar__inner{
         align-items:flex-start;
         gap: 10px;
       }
-
-      /* Botón menú visible en móvil */
       .nav-toggle{ display:inline-flex; }
-
-      /* Navegación colapsada por defecto */
       .nav{
         display:none;
         width:100%;
@@ -350,290 +358,417 @@
         gap: 8px;
         padding-bottom: 10px;
       }
-
-      /* Links en “bloques” clickeables */
       .nav__link{
         background: rgba(0,0,0,.03);
         border: 1px solid var(--line);
         padding: 12px 12px;
       }
-
-      /* WhatsApp: solo ícono (queda elegante) */
       .wa__text{ display:none; }
       .wa{ padding: 10px 10px; }
-
-      /* Logo y nombre: que no se rompa */
       .brand{ min-width:auto; }
       .brand__name{ font-size: 14px; letter-spacing:.08em; }
-
-      /* Contenido */
       section{ padding: 44px 0; }
       .hero{ grid-template-columns: 1fr; }
       .hero__media{ min-height: 220px; }
-
-      /* Botones full-width opcional */
       .actions a.btn{
         width: 100%;
         justify-content:center;
       }
-
       .grid3{ grid-template-columns: 1fr; }
       .grid2{ grid-template-columns: 1fr; }
       .split{ grid-template-columns: 1fr; }
+    }
+
+    /* =======================
+       BLOQUEO POR CONTRASEÑA (solo “pantalla de acceso”, no seguridad real)
+       ======================= */
+    #site { display: none; } /* se muestra tras validar */
+
+    .lock-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.92);
+      display: grid;
+      place-items: center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .lock-card{
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .lock-title{
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: .02em;
+      color: var(--text);
+    }
+    .lock-sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lock-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .lock-input{
+      flex: 1 1 240px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+    .lock-input:focus{ border-color: rgba(0,0,0,.28); }
+    .lock-btn{
+      flex: 0 0 auto;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0b0b0c;
+      color: #fff;
+      font-weight: 950;
+      cursor: pointer;
+    }
+    .lock-btn:hover{ filter: brightness(1.05); }
+    .lock-error{
+      margin-top: 10px;
+      color: #b00020;
+      font-weight: 800;
+      font-size: 13px;
+      display: none;
     }
   </style>
 </head>
 
 <body>
-  <!-- MENU / TOPBAR -->
-  <header class="topbar">
-    <div class="container topbar__inner">
+  <!-- BLOQUEO POR CONTRASEÑA -->
+  <div id="lock" class="lock-overlay" aria-label="Acceso restringido">
+    <div class="lock-card">
+      <h3 class="lock-title">Acceso restringido</h3>
+      <p class="lock-sub">Ingresá la contraseña para ver el sitio.</p>
 
-      <a class="brand" href="#inicio" aria-label="Ir a inicio">
-        <div class="brand__logoBox">
-          <img class="brand__logo" src="imagenes/logo.png" alt="Logo TORNERIA DEVOTTO" />
-        </div>
-        <span class="brand__name">TORNERIA DEVOTTO</span>
-      </a>
+      <div class="lock-row">
+        <input id="pass" class="lock-input" type="password" placeholder="Contraseña" autocomplete="current-password" />
+        <button id="btnLogin" class="lock-btn" type="button">Entrar</button>
+      </div>
 
-      <!-- Botón menú (solo se ve en móvil) -->
-      <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
-
-      <!-- Nav (desktop igual, en móvil se colapsa) -->
-      <nav id="mainnav" class="nav" aria-label="Navegación principal">
-        <a class="nav__link" href="#inicio">INICIO</a>
-        <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
-        <a class="nav__link" href="#servicios">SERVICIOS</a>
-        <a class="nav__link" href="#contacto">CONTACTO</a>
-      </nav>
-
-      <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-        <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
-          <path d="M12.6 11.2c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.4-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.2 3.2.1.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.7.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4l-2.1-1c-.2-.1-.4-.2-.6.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.4Z" fill="currentColor"/>
-        </svg>
-        <span class="wa__text">WhatsApp</span>
-      </a>
-
+      <div id="err" class="lock-error">Contraseña incorrecta.</div>
     </div>
-  </header>
+  </div>
 
-  <!-- HERO -->
-  <main id="inicio">
-    <section>
-      <div class="container hero">
-        <div>
-          <p class="kicker">Taller metalúrgico familiar | Desde los 80s</p>
-          <h1>TORNERIA DEVOTTO</h1>
-          <p class="lead">
-            Torneria Devotto es una pequeña empresa familiar que nace a inicios de los 1980s como un pequeño taller,
-            orientado a la fabricación de implementos y repuestos de equipos: piezas que no se conseguían, mejoras de diseño,
-            o fabricación a costos más económicos, siempre con la tendencia a mejorar el producto para que dure lo máximo posible
-            y mejore su funcionamiento.
+  <!-- TODO EL SITIO VA ADENTRO DE #site -->
+  <div id="site">
+    <!-- MENU / TOPBAR -->
+    <header class="topbar">
+      <div class="container topbar__inner">
+
+        <a class="brand" href="#inicio" aria-label="Ir a inicio">
+          <div class="brand__logoBox">
+            <img class="brand__logo" src="imagenes/logo.png" alt="Logo TORNERIA DEVOTTO" />
+          </div>
+          <span class="brand__name">TORNERIA DEVOTTO</span>
+        </a>
+
+        <!-- Botón menú (solo se ve en móvil) -->
+        <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
+
+        <!-- Nav (desktop igual, en móvil se colapsa) -->
+        <nav id="mainnav" class="nav" aria-label="Navegación principal">
+          <a class="nav__link" href="#inicio">INICIO</a>
+          <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
+          <a class="nav__link" href="#servicios">SERVICIOS</a>
+          <a class="nav__link" href="#contacto">CONTACTO</a>
+        </nav>
+
+        <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M12.6 11.2c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.4-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.2 3.2.1.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.7.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4l-2.1-1c-.2-.1-.4-.2-.6.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.4Z" fill="currentColor"/>
+          </svg>
+          <span class="wa__text">WhatsApp</span>
+        </a>
+
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main id="inicio">
+      <section>
+        <div class="container hero">
+          <div>
+            <p class="kicker">Taller metalúrgico familiar | Desde los 80s</p>
+            <h1>TORNERIA DEVOTTO</h1>
+            <p class="lead">
+              Torneria Devotto es una pequeña empresa familiar que nace a inicios de los 1980s como un pequeño taller,
+              orientado a la fabricación de implementos y repuestos de equipos: piezas que no se conseguían, mejoras de diseño,
+              o fabricación a costos más económicos, siempre con la tendencia a mejorar el producto para que dure lo máximo posible
+              y mejore su funcionamiento.
+            </p>
+
+            <div class="actions">
+              <a class="btn btn--primary" href="#contacto">Contactar</a>
+              <a class="btn" href="#servicios">Ver servicios</a>
+            </div>
+
+            <div class="pillrow" aria-label="Atributos">
+              <span class="pill">Fabricación</span>
+              <span class="pill">Reparación</span>
+              <span class="pill">Industria 365</span>
+              <span class="pill">Ingeniería</span>
+            </div>
+          </div>
+
+          <div class="hero__media" aria-label="Presentación">
+            <div class="hero__mediaContent">
+              <strong style="display:block; font-size:16px;">Capacidad instalada</strong>
+              <p style="margin:6px 0 0; color:rgba(0,0,0,.75);">
+                Tornos (incluye CNC), fresadoras, escoplos, cepillos industriales, balancines,
+                equipos de corte/soldadura/prensas, y tratamientos de endurecimiento.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOBRE NOSOTROS -->
+      <section id="sobre">
+        <div class="container">
+          <p class="kicker">Sobre nosotros</p>
+          <h2>De dónde venimos y cómo trabajamos</h2>
+          <p>
+            Nuestra orientación histórica es resolver necesidades reales: fabricar repuestos difíciles de conseguir,
+            mejorar diseños cuando corresponde, y optimizar costos sin sacrificar durabilidad. Buscamos que cada pieza
+            tenga la mayor vida útil posible y aporte a un mejor funcionamiento del equipo.
           </p>
 
-          <div class="actions">
-            <a class="btn btn--primary" href="#contacto">Contactar</a>
-            <a class="btn" href="#servicios">Ver servicios</a>
-          </div>
-
-          <div class="pillrow" aria-label="Atributos">
-            <span class="pill">Fabricación</span>
-            <span class="pill">Reparación</span>
-            <span class="pill">Industria 365</span>
-            <span class="pill">Ingeniería</span>
-          </div>
-        </div>
-
-        <div class="hero__media" aria-label="Presentación">
-          <div class="hero__mediaContent">
-            <strong style="display:block; font-size:16px;">Capacidad instalada</strong>
-            <p style="margin:6px 0 0; color:rgba(0,0,0,.75);">
-              Tornos (incluye CNC), fresadoras, escoplos, cepillos industriales, balancines,
-              equipos de corte/soldadura/prensas, y tratamientos de endurecimiento.
-            </p>
+          <div class="grid2">
+            <div class="card">
+              <h3>Personal</h3>
+              <p>
+                Contamos con un plantel constante y disponible para la industria. Nuestro funcionamiento es 365,
+                siempre a la orden para solucionar.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Calidad y proceso</h3>
+              <p>
+                Contamos con sistema de trazabilidad interna y control de proceso, además de controles de calidad
+                aplicados a cada producto.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- SOBRE NOSOTROS -->
-    <section id="sobre">
-      <div class="container">
-        <p class="kicker">Sobre nosotros</p>
-        <h2>De dónde venimos y cómo trabajamos</h2>
-        <p>
-          Nuestra orientación histórica es resolver necesidades reales: fabricar repuestos difíciles de conseguir,
-          mejorar diseños cuando corresponde, y optimizar costos sin sacrificar durabilidad. Buscamos que cada pieza
-          tenga la mayor vida útil posible y aporte a un mejor funcionamiento del equipo.
-        </p>
+      <!-- SERVICIOS -->
+      <section id="servicios">
+        <div class="container">
+          <p class="kicker">Servicios</p>
+          <h2>Qué hacemos</h2>
 
-        <div class="grid2">
-          <div class="card">
-            <h3>Personal</h3>
-            <p>
-              Contamos con un plantel constante y disponible para la industria. Nuestro funcionamiento es 365,
-              siempre a la orden para solucionar.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Calidad y proceso</h3>
-            <p>
-              Contamos con sistema de trazabilidad interna y control de proceso, además de controles de calidad
-              aplicados a cada producto.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <div class="grid2">
+            <div class="card">
+              <h3>Productos (fabricación y reparación)</h3>
+              <p>
+                Nuestro alcance es amplio: toda pieza que necesite ser fabricada o reparada,
+                en el 90% de los casos la realizamos mediante torneado, fresado, plegado,
+                embutido, corte, doblado, soldado, entre otros procesos.
+              </p>
+            </div>
 
-    <!-- SERVICIOS -->
-    <section id="servicios">
-      <div class="container">
-        <p class="kicker">Servicios</p>
-        <h2>Qué hacemos</h2>
-
-        <div class="grid2">
-          <div class="card">
-            <h3>Productos (fabricación y reparación)</h3>
-            <p>
-              Nuestro alcance es amplio: toda pieza que necesite ser fabricada o reparada,
-              en el 90% de los casos la realizamos mediante torneado, fresado, plegado,
-              embutido, corte, doblado, soldado, entre otros procesos.
-            </p>
+            <div class="card">
+              <h3>Servicios habituales</h3>
+              <ul class="list">
+                <li>Mantenimiento de reductores (fabricación propia de componentes si se requiere).</li>
+                <li>Mantenimiento de motores.</li>
+                <li>Mantenimiento de turbinas con balanceo estático y dinámico.</li>
+                <li>Mantenimiento de partes de máquinas (reparación y ajuste integral).</li>
+                <li>Recepción de equipos desmontados: desmonte, mantenimiento, reparación y montaje en taller.</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="card">
-            <h3>Servicios habituales</h3>
+          <div class="card" style="margin-top:14px;">
+            <h3>Equipos e instalaciones (resumen)</h3>
             <ul class="list">
-              <li>Mantenimiento de reductores (fabricación propia de componentes si se requiere).</li>
-              <li>Mantenimiento de motores.</li>
-              <li>Mantenimiento de turbinas con balanceo estático y dinámico.</li>
-              <li>Mantenimiento de partes de máquinas (reparación y ajuste integral).</li>
-              <li>Recepción de equipos desmontados: desmonte, mantenimiento, reparación y montaje en taller.</li>
+              <li><strong>15 tornos</strong> (5 CNC). Desde tamaños chicos hasta 4 m EP y 1.2 m de diámetro.</li>
+              <li><strong>10 fresadoras</strong>, algunas con particularidades para mayor calidad y rapidez. Mesas hasta 12 toneladas.</li>
+              <li><strong>2 escoplos</strong> (uno mediano y otro de gran tamaño).</li>
+              <li><strong>1 cepillo industrial</strong>.</li>
+              <li><strong>10 balancines mecánicos</strong> de distintas toneladas.</li>
+              <li>Equipos de corte, soldadura, prensas varias, dobladoras de caño sin arrugas, aboquillado, valonado, etc.</li>
+              <li>Equipos de endurecimiento para distintas aplicaciones.</li>
             </ul>
           </div>
         </div>
+      </section>
 
-        <div class="card" style="margin-top:14px;">
-          <h3>Equipos e instalaciones (resumen)</h3>
-          <ul class="list">
-            <li><strong>15 tornos</strong> (5 CNC). Desde tamaños chicos hasta 4 m EP y 1.2 m de diámetro.</li>
-            <li><strong>10 fresadoras</strong>, algunas con particularidades para mayor calidad y rapidez. Mesas hasta 12 toneladas.</li>
-            <li><strong>2 escoplos</strong> (uno mediano y otro de gran tamaño).</li>
-            <li><strong>1 cepillo industrial</strong>.</li>
-            <li><strong>10 balancines mecánicos</strong> de distintas toneladas.</li>
-            <li>Equipos de corte, soldadura, prensas varias, dobladoras de caño sin arrugas, aboquillado, valonado, etc.</li>
-            <li>Equipos de endurecimiento para distintas aplicaciones.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      <!-- MODALIDADES -->
+      <section id="modalidades">
+        <div class="container">
+          <p class="kicker">Sistemas de trabajo</p>
+          <h2>5 modalidades disponibles</h2>
+          <p>
+            Hemos desarrollado 5 modalidades de trabajo propias que ponemos a disposición según la necesidad operativa
+            y la estrategia de mantenimiento preventivo.
+          </p>
 
-    <!-- MODALIDADES -->
-    <section id="modalidades">
-      <div class="container">
-        <p class="kicker">Sistemas de trabajo</p>
-        <h2>5 modalidades disponibles</h2>
-        <p>
-          Hemos desarrollado 5 modalidades de trabajo propias que ponemos a disposición según la necesidad operativa
-          y la estrategia de mantenimiento preventivo.
-        </p>
-
-        <div class="grid3">
-          <article class="card">
-            <h3>M1</h3>
-            <p>Almacén físico a nuestro cargo: repuesto inmediato con previo diseño de mantenimiento preventivo.</p>
-          </article>
-          <article class="card">
-            <h3>M2</h3>
-            <p>Almacén físico semiterminado: repuesto casi inmediato con previo diseño de mantenimiento preventivo.</p>
-          </article>
-          <article class="card">
-            <h3>M3</h3>
-            <p>Almacén virtual: repuesto rápido con previo diseño de mantenimiento preventivo.</p>
-          </article>
-          <article class="card">
-            <h3>M4</h3>
-            <p>Fabricación según muestra o plano con tiempos normales de procesamiento.</p>
-          </article>
-          <article class="card">
-            <h3>M5</h3>
-            <p>Fabricación rápida en modo urgencia.</p>
-          </article>
-          <article class="card">
-            <h3>Trazabilidad</h3>
-            <p>Control de proceso interno + controles de calidad por producto.</p>
-          </article>
-        </div>
-
-        <div class="card" style="margin-top:14px;">
-          <h3>Oficina de ingeniería</h3>
-          <p>Contamos con oficina de ingeniería que brinda apoyo técnico en todos los desafíos que encaramos.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section id="contacto">
-      <div class="container">
-        <p class="kicker">Contacto</p>
-        <h2>Coordinemos una visita en planta</h2>
-        <p>
-          En esta descripción se presenta en forma general lo que hacemos y de dónde venimos.
-          Si tienen interés, puedo visitarlos en planta cuando ustedes dispongan para comentar detalles,
-          responder consultas y relevar necesidades in situ.
-        </p>
-        <p style="color:rgba(0,0,0,.82); font-weight:900;">
-          Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#000;">Ing. Nicolás Devotto</span>.
-        </p>
-
-        <div class="split">
-          <div>
-            <div class="pillrow">
-              <a class="pill" href="mailto:torneriadevotto1@gmail.com">torneriadevotto1@gmail.com</a>
-              <a class="pill" href="https://wa.me/59891711017" target="_blank" rel="noopener">WhatsApp: +598 91 711 017</a>
-            </div>
-            <p style="margin-top:14px;">
-              Si preferís, enviá por WhatsApp una foto/medidas o una breve descripción del trabajo a realizar.
-            </p>
+          <div class="grid3">
+            <article class="card">
+              <h3>M1</h3>
+              <p>Almacén físico a nuestro cargo: repuesto inmediato con previo diseño de mantenimiento preventivo.</p>
+            </article>
+            <article class="card">
+              <h3>M2</h3>
+              <p>Almacén físico semiterminado: repuesto casi inmediato con previo diseño de mantenimiento preventivo.</p>
+            </article>
+            <article class="card">
+              <h3>M3</h3>
+              <p>Almacén virtual: repuesto rápido con previo diseño de mantenimiento preventivo.</p>
+            </article>
+            <article class="card">
+              <h3>M4</h3>
+              <p>Fabricación según muestra o plano con tiempos normales de procesamiento.</p>
+            </article>
+            <article class="card">
+              <h3>M5</h3>
+              <p>Fabricación rápida en modo urgencia.</p>
+            </article>
+            <article class="card">
+              <h3>Trazabilidad</h3>
+              <p>Control de proceso interno + controles de calidad por producto.</p>
+            </article>
           </div>
 
-          <form class="form" onsubmit="return false;">
-            <label class="label">
-              Nombre
-              <input class="input" type="text" placeholder="Tu nombre" />
-            </label>
-
-            <label class="label">
-              Empresa (opcional)
-              <input class="input" type="text" placeholder="Nombre de empresa" />
-            </label>
-
-            <label class="label">
-              Mensaje
-              <textarea class="input" rows="4" placeholder="Contanos qué necesitás (pieza / reparación / mantenimiento)"></textarea>
-            </label>
-
-            <button class="btn btn--primary" type="button">Enviar</button>
-            <p style="margin-top:10px; font-size:13px; color:rgba(0,0,0,.60);">
-              (Luego conectamos este formulario a email o envío directo a WhatsApp.)
-            </p>
-          </form>
+          <div class="card" style="margin-top:14px;">
+            <h3>Oficina de ingeniería</h3>
+            <p>Contamos con oficina de ingeniería que brinda apoyo técnico en todos los desafíos que encaramos.</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <footer>
-      <div class="container footer__inner">
-        <div><strong style="color:var(--text);">TORNERIA DEVOTTO</strong></div>
-        <div>© <span id="year"></span></div>
-      </div>
-    </footer>
-  </main>
+      <!-- CONTACTO -->
+      <section id="contacto">
+        <div class="container">
+          <p class="kicker">Contacto</p>
+          <h2>Coordinemos una visita en planta</h2>
+          <p>
+            En esta descripción se presenta en forma general lo que hacemos y de dónde venimos.
+            Si tienen interés, puedo visitarlos en planta cuando ustedes dispongan para comentar detalles,
+            responder consultas y relevar necesidades in situ.
+          </p>
+          <p style="color:rgba(0,0,0,.82); font-weight:900;">
+            Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#000;">Ing. Nicolás Devotto</span>.
+          </p>
+
+          <div class="split">
+            <div>
+              <div class="pillrow">
+                <a class="pill" href="mailto:torneriadevotto1@gmail.com">torneriadevotto1@gmail.com</a>
+                <a class="pill" href="https://wa.me/59891711017" target="_blank" rel="noopener">WhatsApp: +598 91 711 017</a>
+              </div>
+              <p style="margin-top:14px;">
+                Si preferís, enviá por WhatsApp una foto/medidas o una breve descripción del trabajo a realizar.
+              </p>
+            </div>
+
+            <form class="form" onsubmit="return false;">
+              <label class="label">
+                Nombre
+                <input class="input" type="text" placeholder="Tu nombre" />
+              </label>
+
+              <label class="label">
+                Empresa (opcional)
+                <input class="input" type="text" placeholder="Nombre de empresa" />
+              </label>
+
+              <label class="label">
+                Mensaje
+                <textarea class="input" rows="4" placeholder="Contanos qué necesitás (pieza / reparación / mantenimiento)"></textarea>
+              </label>
+
+              <button class="btn btn--primary" type="button">Enviar</button>
+              <p style="margin-top:10px; font-size:13px; color:rgba(0,0,0,.60);">
+                (Luego conectamos este formulario a email o envío directo a WhatsApp.)
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="container footer__inner">
+          <div><strong style="color:var(--text);">TORNERIA DEVOTTO</strong></div>
+          <div>© <span id="year"></span></div>
+        </div>
+      </footer>
+    </main>
+  </div><!-- /#site -->
 
   <script>
-    // Menú móvil (solo afecta cuando el CSS lo colapsa)
+    // ========= BLOQUEO POR CONTRASEÑA =========
+    // SHA-256 de "Leo14261512*a"
+    const EXPECTED_HASH = "4760202338c8f13dc564aa2826a384ee0e58b4ac2c43daf1eb4cea8c215407ab";
+    const KEY = "td_auth_v1";
+
+    const $lock = document.getElementById("lock");
+    const $site = document.getElementById("site");
+    const $pass = document.getElementById("pass");
+    const $btn  = document.getElementById("btnLogin");
+    const $err  = document.getElementById("err");
+
+    async function sha256Hex(str) {
+      const enc = new TextEncoder().encode(str);
+      const buf = await crypto.subtle.digest("SHA-256", enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function unlock() {
+      $lock.style.display = "none";
+      $site.style.display = "block";
+    }
+
+    async function tryLogin() {
+      $err.style.display = "none";
+      const input = ($pass.value || "").trim();
+      const h = await sha256Hex(input);
+
+      if (h === EXPECTED_HASH) {
+        localStorage.setItem(KEY, "1");
+        unlock();
+      } else {
+        $err.style.display = "block";
+        $pass.focus();
+        $pass.select();
+      }
+    }
+
+    // Si ya validó antes, entra directo
+    if (localStorage.getItem(KEY) === "1") {
+      unlock();
+    } else {
+      $site.style.display = "none";
+      $lock.style.display = "grid";
+    }
+
+    $btn.addEventListener("click", tryLogin);
+    $pass.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") tryLogin();
+    });
+
+    // ========= MENÚ MÓVIL =========
     const toggle = document.querySelector(".nav-toggle");
     const nav = document.querySelector("#mainnav");
 
@@ -654,8 +789,9 @@
       });
     }
 
-    // Año
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // ========= AÑO =========
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
