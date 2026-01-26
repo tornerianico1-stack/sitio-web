@@ -32,7 +32,8 @@
 
   <style>
     :root{
-      /* TEMA CLARO */
+      /* ========= THEME TOKENS (por defecto: claro) ========= */
+      --accent: #e36a00; /* naranja */
       --bg1:#ffffff;
       --bg2:#ffffff;
       --glass: rgba(255,255,255,.88);
@@ -44,6 +45,65 @@
       --shadow: 0 12px 30px rgba(0,0,0,.12);
       --container: 1100px;
       --pad: 20px;
+
+      /* botones */
+      --btn-bg: rgba(0,0,0,.04);
+      --btn-bg-hover: rgba(0,0,0,.07);
+      --btn-border: var(--line);
+    }
+
+    /* ========= THEMES (solo naranja/gris/blanco/negro) ========= */
+    /* 1) Claro (default): sin bloque extra */
+
+    /* 2) Grafito (oscuro) */
+    [data-theme="grafito"]{
+      --accent: #ff7a1a;
+      --bg1:#0f1012;
+      --bg2:#0f1012;
+      --glass: rgba(18,18,20,.88);
+      --text:#f2f3f4;
+      --muted: rgba(242,243,244,.72);
+      --line: rgba(242,243,244,.16);
+      --card: rgba(242,243,244,.06);
+      --shadow: 0 14px 34px rgba(0,0,0,.55);
+
+      --btn-bg: rgba(242,243,244,.08);
+      --btn-bg-hover: rgba(242,243,244,.12);
+      --btn-border: rgba(242,243,244,.18);
+    }
+
+    /* 3) Naranja (claro con acento más fuerte) */
+    [data-theme="naranja"]{
+      --accent: #f06f00;
+      --bg1:#ffffff;
+      --bg2:#fff7f0; /* blanco con leve tono cálido */
+      --glass: rgba(255,255,255,.92);
+      --text:#0b0b0c;
+      --muted: rgba(0,0,0,.72);
+      --line: rgba(0,0,0,.14);
+      --card: rgba(240,111,0,.06);
+      --shadow: 0 12px 30px rgba(0,0,0,.12);
+
+      --btn-bg: rgba(0,0,0,.04);
+      --btn-bg-hover: rgba(0,0,0,.07);
+      --btn-border: rgba(0,0,0,.14);
+    }
+
+    /* 4) Industrial (gris claro + naranja sutil) */
+    [data-theme="industrial"]{
+      --accent: #e36a00;
+      --bg1:#f6f7f8;
+      --bg2:#f6f7f8;
+      --glass: rgba(246,247,248,.92);
+      --text:#0b0b0c;
+      --muted: rgba(0,0,0,.70);
+      --line: rgba(0,0,0,.14);
+      --card: rgba(0,0,0,.03);
+      --shadow: 0 10px 26px rgba(0,0,0,.10);
+
+      --btn-bg: rgba(0,0,0,.04);
+      --btn-bg-hover: rgba(0,0,0,.07);
+      --btn-border: rgba(0,0,0,.14);
     }
 
     *{ box-sizing:border-box; }
@@ -99,6 +159,8 @@
       padding: 8px;
       flex: 0 0 auto;
     }
+    [data-theme="grafito"] .brand__logoBox{ background: rgba(242,243,244,.06); }
+
     .brand__logo{
       width: 100%;
       height: 100%;
@@ -133,6 +195,9 @@
       color: var(--text);
       background: rgba(0,0,0,.05);
     }
+    [data-theme="grafito"] .nav__link:hover{
+      background: rgba(242,243,244,.10);
+    }
 
     .wa{
       display:inline-flex;
@@ -141,21 +206,72 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.04);
+      background: var(--btn-bg);
       color: var(--text);
       font-weight: 900;
       box-shadow: var(--shadow);
       transition: .15s ease;
       white-space: nowrap;
     }
-    .wa:hover{ background: rgba(0,0,0,.07); }
+    .wa:hover{ background: var(--btn-bg-hover); }
     .wa__text{ font-size: 13px; letter-spacing:.02em; }
+
+    /* ===== THEME SWITCH (nuevo) ===== */
+    .topbar__right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .theme-switch{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.02);
+    }
+    [data-theme="grafito"] .theme-switch{ background: rgba(242,243,244,.06); }
+
+    .theme-btn{
+      appearance: none;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .15s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      line-height: 1;
+    }
+    .theme-btn:hover{ background: var(--btn-bg-hover); }
+    .theme-btn.is-active{
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(227,106,0,.22);
+    }
+    .theme-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 1px solid var(--btn-border);
+      flex: 0 0 auto;
+    }
 
     /* ===== MENU MOBILE (NUEVO, NO TOCA DESKTOP) ===== */
     .nav-toggle{
       display:none; /* desktop: oculto */
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.04);
+      background: var(--btn-bg);
       color: var(--text);
       padding: 10px 12px;
       border-radius: 12px;
@@ -164,9 +280,13 @@
       letter-spacing: .06em;
       text-transform: uppercase;
     }
+    .nav-toggle:hover{ background: var(--btn-bg-hover); }
     .nav-toggle:focus{
       outline: 2px solid rgba(0,0,0,.25);
       outline-offset: 2px;
+    }
+    [data-theme="grafito"] .nav-toggle:focus{
+      outline: 2px solid rgba(242,243,244,.22);
     }
 
     /* ===== SECTIONS ===== */
@@ -206,6 +326,7 @@
       font-size: 18px;
       max-width: 70ch;
     }
+    [data-theme="grafito"] .lead{ color: rgba(242,243,244,.86); }
 
     .hero{
       display:grid;
@@ -225,6 +346,8 @@
       position: relative;
       overflow: hidden;
     }
+    [data-theme="grafito"] .hero__media{ background: rgba(242,243,244,.06); }
+
     .hero__media::before{
       content:"";
       position:absolute;
@@ -234,6 +357,12 @@
         radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.04), transparent 55%);
       pointer-events:none;
     }
+    [data-theme="grafito"] .hero__media::before{
+      background:
+        radial-gradient(700px 280px at 30% 20%, rgba(242,243,244,.06), transparent 55%),
+        radial-gradient(700px 280px at 70% 50%, rgba(242,243,244,.04), transparent 55%);
+    }
+
     .hero__mediaContent{ position: relative; z-index: 1; }
 
     .actions{
@@ -249,15 +378,15 @@
       padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.04);
+      background: var(--btn-bg);
       color: var(--text);
       font-weight: 900;
       font-size: 14px;
       transition: .15s ease;
     }
-    .btn:hover{ background: rgba(0,0,0,.07); }
+    .btn:hover{ background: var(--btn-bg-hover); }
     .btn--primary{
-      background: #0b0b0c;
+      background: var(--accent);
       color: #ffffff;
       border-color: transparent;
       box-shadow: var(--shadow);
@@ -278,17 +407,20 @@
     }
     .card{
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.02);
+      background: var(--card);
       border-radius: var(--radius);
       padding: 16px;
     }
     .card h3{ margin:0 0 6px; font-size: 18px; color: var(--text); }
     .card p{ margin:0; font-size: 14px; color: rgba(0,0,0,.75); }
+    [data-theme="grafito"] .card p{ color: rgba(242,243,244,.78); }
+
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
       color: rgba(0,0,0,.75);
     }
+    [data-theme="grafito"] .list{ color: rgba(242,243,244,.78); }
     .list li{ margin: 8px 0; }
 
     .pillrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
@@ -300,6 +432,10 @@
       font-weight: 900;
       font-size: 13px;
       color: rgba(0,0,0,.85);
+    }
+    [data-theme="grafito"] .pill{
+      background: rgba(242,243,244,.06);
+      color: rgba(242,243,244,.86);
     }
 
     .split{
@@ -315,6 +451,8 @@
       background: rgba(0,0,0,.02);
       padding: 16px;
     }
+    [data-theme="grafito"] .form{ background: rgba(242,243,244,.05); }
+
     .label{
       display:block;
       font-weight: 900;
@@ -322,6 +460,8 @@
       margin:0 0 10px;
       color: rgba(0,0,0,.86);
     }
+    [data-theme="grafito"] .label{ color: rgba(242,243,244,.86); }
+
     .input{
       width: 100%;
       margin-top: 6px;
@@ -332,7 +472,13 @@
       color: var(--text);
       outline: none;
     }
+    [data-theme="grafito"] .input{
+      background: rgba(18,18,20,.80);
+      color: rgba(242,243,244,.92);
+      border-color: rgba(242,243,244,.18);
+    }
     .input:focus{ border-color: rgba(0,0,0,.28); }
+    [data-theme="grafito"] .input:focus{ border-color: rgba(255,122,26,.55); }
 
     footer{ padding: 26px 0; }
     .footer__inner{
@@ -352,7 +498,24 @@
         align-items:flex-start;
         gap: 10px;
       }
+
+      .topbar__right{
+        width: 100%;
+        justify-content:space-between;
+      }
+
       .nav-toggle{ display:inline-flex; }
+
+      .theme-switch{
+        order: 3;
+        width: 100%;
+        justify-content:space-between;
+      }
+      .theme-btn{
+        flex: 1 1 auto;
+        justify-content:center;
+      }
+
       .nav{
         display:none;
         width:100%;
@@ -371,6 +534,10 @@
         border: 1px solid var(--line);
         padding: 12px 12px;
       }
+      [data-theme="grafito"] .nav__link{
+        background: rgba(242,243,244,.06);
+      }
+
       .wa__text{ display:none; }
       .wa{ padding: 10px 10px; }
       .brand{ min-width:auto; }
@@ -410,6 +577,11 @@
       box-shadow: var(--shadow);
       padding: 18px;
     }
+    [data-theme="grafito"] .lock-overlay{ background: rgba(15,16,18,.92); }
+    [data-theme="grafito"] .lock-card{ background: rgba(18,18,20,.95); }
+    [data-theme="grafito"] .lock-title{ color: rgba(242,243,244,.92); }
+    [data-theme="grafito"] .lock-sub{ color: rgba(242,243,244,.70); }
+
     .lock-title{
       margin: 0 0 6px;
       font-size: 18px;
@@ -438,13 +610,20 @@
       outline: none;
       font-size: 14px;
     }
+    [data-theme="grafito"] .lock-input{
+      background: rgba(15,16,18,.85);
+      color: rgba(242,243,244,.92);
+      border-color: rgba(242,243,244,.18);
+    }
     .lock-input:focus{ border-color: rgba(0,0,0,.28); }
+    [data-theme="grafito"] .lock-input:focus{ border-color: rgba(255,122,26,.55); }
+
     .lock-btn{
       flex: 0 0 auto;
       padding: 12px 14px;
       border-radius: 12px;
       border: 1px solid var(--line);
-      background: #0b0b0c;
+      background: var(--accent);
       color: #fff;
       font-weight: 950;
       cursor: pointer;
@@ -489,24 +668,47 @@
           <span class="brand__name">TORNERIA DEVOTTO</span>
         </a>
 
-        <!-- Botón menú (solo se ve en móvil) -->
-        <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
+        <!-- Derecha: menú, temas y WhatsApp -->
+        <div class="topbar__right">
+          <!-- Botón menú (solo se ve en móvil) -->
+          <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
 
-        <!-- Nav (desktop igual, en móvil se colapsa) -->
-        <nav id="mainnav" class="nav" aria-label="Navegación principal">
-          <a class="nav__link" href="#inicio">INICIO</a>
-          <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
-          <a class="nav__link" href="#servicios">SERVICIOS</a>
-          <a class="nav__link" href="#contacto">CONTACTO</a>
-        </nav>
+          <!-- Nav (desktop igual, en móvil se colapsa) -->
+          <nav id="mainnav" class="nav" aria-label="Navegación principal">
+            <a class="nav__link" href="#inicio">INICIO</a>
+            <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
+            <a class="nav__link" href="#servicios">SERVICIOS</a>
+            <a class="nav__link" href="#contacto">CONTACTO</a>
+          </nav>
 
-        <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-          <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M12.6 11.2c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.4-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.2 3.2.1.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.7.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4l-2.1-1c-.2-.1-.4-.2-.6.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.4Z" fill="currentColor"/>
-          </svg>
-          <span class="wa__text">WhatsApp</span>
-        </a>
+          <!-- THEME SWITCH (4 botones) -->
+          <div class="theme-switch" aria-label="Cambiar tema">
+            <button class="theme-btn" type="button" data-set-theme="claro" aria-label="Tema claro">
+              <span class="theme-dot" aria-hidden="true"></span>
+              Claro
+            </button>
+            <button class="theme-btn" type="button" data-set-theme="industrial" aria-label="Tema industrial">
+              <span class="theme-dot" aria-hidden="true"></span>
+              Industrial
+            </button>
+            <button class="theme-btn" type="button" data-set-theme="naranja" aria-label="Tema naranja">
+              <span class="theme-dot" aria-hidden="true"></span>
+              Naranja
+            </button>
+            <button class="theme-btn" type="button" data-set-theme="grafito" aria-label="Tema grafito">
+              <span class="theme-dot" aria-hidden="true"></span>
+              Grafito
+            </button>
+          </div>
+
+          <a class="wa" href="https://wa.me/59891711017" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+            <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M16 3C9.383 3 4 8.383 4 15c0 2.393.705 4.73 2.037 6.748L5 29l7.43-1.973A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12.6 11.2c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.4-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.2 3.2.1.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.7.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4l-2.1-1c-.2-.1-.4-.2-.6.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.4Z" fill="currentColor"/>
+            </svg>
+            <span class="wa__text">WhatsApp</span>
+          </a>
+        </div>
 
       </div>
     </header>
@@ -727,6 +929,38 @@
   </div><!-- /#site -->
 
   <script>
+    // ========= TEMA (4 botones) =========
+    const THEME_KEY = "td_theme_v1";
+
+    function setTheme(theme) {
+      const t = (theme || "claro").toLowerCase();
+
+      if (t === "claro") {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", t);
+      }
+
+      localStorage.setItem(THEME_KEY, t);
+
+      // marcar activo
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        const isActive = (btn.getAttribute("data-set-theme") === t);
+        btn.classList.toggle("is-active", isActive);
+      });
+    }
+
+    // cargar tema guardado
+    const savedTheme = localStorage.getItem(THEME_KEY) || "claro";
+    setTheme(savedTheme);
+
+    // listeners botones
+    document.querySelectorAll(".theme-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setTheme(btn.getAttribute("data-set-theme"));
+      });
+    });
+
     // ========= BLOQUEO POR CONTRASEÑA =========
     // SHA-256 de "Leo14261512*a"
     const EXPECTED_HASH = "4760202338c8f13dc564aa2826a384ee0e58b4ac2c43daf1eb4cea8c215407ab";
