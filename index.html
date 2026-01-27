@@ -392,6 +392,7 @@
       .grid3{ grid-template-columns: 1fr; }
       .grid2{ grid-template-columns: 1fr; }
       .split{ grid-template-columns: 1fr; }
+      .tone-panel{ left: 10px; right: 10px; bottom: 10px; width: auto; }
     }
 
     /* =======================
@@ -464,6 +465,79 @@
       font-weight: 900;
       font-size: 13px;
       display: none;
+    }
+
+    /* =======================
+       CONTROL DE TONO (SLIDER)
+       ======================= */
+    .tone-panel{
+      position: fixed;
+      left: 14px;
+      bottom: 14px;
+      z-index: 9998;
+      width: min(380px, calc(100vw - 28px));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .tone-row{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tone-title{
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.75);
+    }
+
+    .tone-range{
+      width: 100%;
+      accent-color: rgba(0,0,0,.55);
+    }
+
+    .tone-meta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(0,0,0,.78);
+      font-weight: 900;
+    }
+
+    .swatch{
+      width: 36px;
+      height: 22px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+
+    .tone-chip{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+    }
+
+    .tone-actions{
+      margin-top: 10px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .tone-actions button{
+      cursor:pointer;
     }
   </style>
 </head>
@@ -734,6 +808,28 @@
     </main>
   </div><!-- /#site -->
 
+  <!-- PANEL DE TONO (SLIDER) -->
+  <div id="tonePanel" class="tone-panel" aria-label="Control de tono del fondo" style="display:none;">
+    <div class="tone-row">
+      <div class="tone-title">Tono de fondo (naranja)</div>
+    </div>
+
+    <input id="toneRange" class="tone-range" type="range" min="35" max="78" step="1" value="70" />
+
+    <div class="tone-meta">
+      <div class="swatch" aria-hidden="true"></div>
+      <div class="tone-chip">L: <span id="toneL">70</span>%</div>
+      <div class="tone-chip">HEX (bg1): <span id="toneHex1">#FFD2A3</span></div>
+      <div class="tone-chip">HEX (bg2): <span id="toneHex2">#FFB56B</span></div>
+      <div class="tone-chip">HSL: <span id="toneHsl">hsl(30 100% 70%)</span></div>
+    </div>
+
+    <div class="tone-actions">
+      <button id="toneCopy" class="btn" type="button">Copiar colores</button>
+      <button id="toneReset" class="btn btn--primary" type="button">Reset</button>
+    </div>
+  </div>
+
   <script>
     // ========= BLOQUEO POR CONTRASEÑA =========
     // SHA-256 de "Leo14261512*a"
@@ -755,6 +851,9 @@
     function unlock() {
       $lock.style.display = "none";
       $site.style.display = "block";
+      // mostrar panel de tono cuando el sitio está visible
+      const tonePanel = document.getElementById("tonePanel");
+      if (tonePanel) tonePanel.style.display = "block";
     }
 
     async function tryLogin() {
@@ -777,6 +876,8 @@
     } else {
       $site.style.display = "none";
       $lock.style.display = "grid";
+      const tonePanel = document.getElementById("tonePanel");
+      if (tonePanel) tonePanel.style.display = "none";
     }
 
     $btn.addEventListener("click", tryLogin);
@@ -807,6 +908,121 @@
     // ========= AÑO =========
     const y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
+
+    // ==========================
+    // CONTROL DE TONO DEL FONDO
+    // ==========================
+    const DEFAULT_L = 70;      // luz base
+    const H = 30;              // tono "naranja" fijo (0=rojo, 30=naranja, 60=amarillo)
+    const S1 = 100;            // saturación para bg1
+    const S2 = 100;            // saturación para bg2
+    const DELTA_L = 12;        // diferencia de luz entre bg1 y bg2 (gradiente)
+
+    const toneRange = document.getElementById("toneRange");
+    const toneL = document.getElementById("toneL");
+    const toneHex1 = document.getElementById("toneHex1");
+    const toneHex2 = document.getElementById("toneHex2");
+    const toneHsl = document.getElementById("toneHsl");
+    const toneCopy = document.getElementById("toneCopy");
+    const toneReset = document.getElementById("toneReset");
+
+    // Persistencia local (opcional)
+    const TONE_KEY = "td_tone_L_v1";
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+    function hslToRgb(h, s, l) {
+      // h: 0-360, s/l: 0-100
+      s /= 100; l /= 100;
+      const c = (1 - Math.abs(2*l - 1)) * s;
+      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      const m = l - c/2;
+      let r=0,g=0,b=0;
+
+      if (0 <= h && h < 60)      { r=c; g=x; b=0; }
+      else if (60 <= h && h < 120){ r=x; g=c; b=0; }
+      else if (120 <= h && h < 180){ r=0; g=c; b=x; }
+      else if (180 <= h && h < 240){ r=0; g=x; b=c; }
+      else if (240 <= h && h < 300){ r=x; g=0; b=c; }
+      else                        { r=c; g=0; b=x; }
+
+      const R = Math.round((r+m) * 255);
+      const G = Math.round((g+m) * 255);
+      const B = Math.round((b+m) * 255);
+      return { R, G, B };
+    }
+
+    function rgbToHex(R, G, B){
+      const toHex = (v)=> v.toString(16).padStart(2, "0").toUpperCase();
+      return `#${toHex(R)}${toHex(G)}${toHex(B)}`;
+    }
+
+    function applyTone(L){
+      const L1 = clamp(L, 0, 100);
+      const L2 = clamp(L - DELTA_L, 0, 100);
+
+      const rgb1 = hslToRgb(H, S1, L1);
+      const rgb2 = hslToRgb(H, S2, L2);
+
+      const hex1 = rgbToHex(rgb1.R, rgb1.G, rgb1.B);
+      const hex2 = rgbToHex(rgb2.R, rgb2.G, rgb2.B);
+
+      // aplica a CSS variables
+      document.documentElement.style.setProperty("--bg1", hex1);
+      document.documentElement.style.setProperty("--bg2", hex2);
+
+      // también ajusta el "glass" para mantener coherencia
+      document.documentElement.style.setProperty("--glass", `rgba(255, ${Math.round(180 + (L1-50)*1.0)}, 140, .86)`);
+
+      // UI
+      if (toneL) toneL.textContent = String(L1);
+      if (toneHex1) toneHex1.textContent = hex1;
+      if (toneHex2) toneHex2.textContent = hex2;
+      if (toneHsl) toneHsl.textContent = `hsl(${H} ${S1}% ${L1}%)`;
+
+      // persist
+      try { localStorage.setItem(TONE_KEY, String(L1)); } catch(e){}
+    }
+
+    // iniciar con valor guardado o default
+    let startL = DEFAULT_L;
+    try {
+      const saved = localStorage.getItem(TONE_KEY);
+      if (saved) startL = clamp(parseInt(saved, 10) || DEFAULT_L, 35, 78);
+    } catch(e){}
+
+    if (toneRange) {
+      toneRange.value = String(startL);
+      applyTone(startL);
+
+      toneRange.addEventListener("input", () => {
+        applyTone(parseInt(toneRange.value, 10));
+      });
+    }
+
+    if (toneReset) {
+      toneReset.addEventListener("click", () => {
+        if (toneRange) toneRange.value = String(DEFAULT_L);
+        applyTone(DEFAULT_L);
+      });
+    }
+
+    if (toneCopy) {
+      toneCopy.addEventListener("click", async () => {
+        const Lval = toneRange ? parseInt(toneRange.value, 10) : DEFAULT_L;
+        const bg1 = getComputedStyle(document.documentElement).getPropertyValue("--bg1").trim();
+        const bg2 = getComputedStyle(document.documentElement).getPropertyValue("--bg2").trim();
+        const text = `TornoDevotto Fondo:\nL=${Lval}%\nbg1=${bg1}\nbg2=${bg2}\nHSL=hsl(${H} ${S1}% ${Lval}%)`;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          toneCopy.textContent = "Copiado ✅";
+          setTimeout(() => (toneCopy.textContent = "Copiar colores"), 1200);
+        } catch(e) {
+          alert(text);
+        }
+      });
+    }
   </script>
 </body>
 </html>
