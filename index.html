@@ -32,35 +32,20 @@
 
   <style>
     :root{
-      /* ========= TEMA NARANJA (FUERTE) ========= */
-      --accent: #ff7a00;
+      /* ========= NARANJA MÁS SUAVE + TEXTO NEGRO ========= */
+      --bg1:#ffd2a3;          /* naranja suave */
+      --bg2:#ffb56b;          /* naranja suave un poco más fuerte */
+      --glass: rgba(255, 210, 163, .86);
 
-      /* Fondo general (toda la ventana) */
-      --bg1: #ff6a00;
-      --bg2: #ff3d00;
+      --text:#0b0b0c;         /* negro */
+      --muted: rgba(0,0,0,.72);
 
-      /* "Glass" del menú: naranja con transparencia */
-      --glass: rgba(255, 106, 0, .86);
-
-      /* Textos */
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.82);
-
-      /* Líneas / bordes */
-      --line: rgba(255,255,255,.22);
-
-      /* Tarjetas */
-      --card: rgba(0,0,0,.10);
+      --line: rgba(0,0,0,.14);
 
       --radius: 16px;
-      --shadow: 0 14px 34px rgba(0,0,0,.35);
+      --shadow: 0 12px 30px rgba(0,0,0,.16);
       --container: 1100px;
       --pad: 20px;
-
-      /* Botones */
-      --btn-bg: rgba(0,0,0,.14);
-      --btn-bg-hover: rgba(0,0,0,.20);
-      --btn-border: rgba(255,255,255,.20);
     }
 
     *{ box-sizing:border-box; }
@@ -104,12 +89,11 @@
       min-width: 240px;
     }
 
-    /* LOGO */
     .brand__logoBox{
       width: clamp(82px, 7.5vw, 125px);
       height: clamp(82px, 7.5vw, 125px);
       border-radius: 14px;
-      background: rgba(0,0,0,.14);
+      background: rgba(255,255,255,.50);
       border: 1px solid var(--line);
       display:flex;
       align-items:center;
@@ -138,7 +122,7 @@
       justify-content:center;
     }
     .nav__link{
-      color: rgba(255,255,255,.92);
+      color: rgba(0,0,0,.78);
       font-weight: 900;
       font-size: 13px;
       letter-spacing: .10em;
@@ -148,8 +132,8 @@
       transition: .15s ease;
     }
     .nav__link:hover{
-      background: rgba(0,0,0,.14);
-      color: #fff;
+      color: var(--text);
+      background: rgba(0,0,0,.06);
     }
 
     .wa{
@@ -158,23 +142,23 @@
       gap:10px;
       padding: 10px 12px;
       border-radius: 999px;
-      border: 1px solid var(--btn-border);
-      background: rgba(0,0,0,.18);
-      color: #fff;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.45);
+      color: var(--text);
       font-weight: 900;
       box-shadow: var(--shadow);
       transition: .15s ease;
       white-space: nowrap;
     }
-    .wa:hover{ background: rgba(0,0,0,.24); }
+    .wa:hover{ background: rgba(255,255,255,.62); }
     .wa__text{ font-size: 13px; letter-spacing:.02em; }
 
-    /* ===== MENU MOBILE (NO TOCA DESKTOP) ===== */
+    /* ===== MENU MOBILE ===== */
     .nav-toggle{
-      display:none; /* desktop: oculto */
-      border: 1px solid var(--btn-border);
-      background: rgba(0,0,0,.18);
-      color: #fff;
+      display:none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.45);
+      color: var(--text);
       padding: 10px 12px;
       border-radius: 12px;
       font-weight: 950;
@@ -183,16 +167,16 @@
       text-transform: uppercase;
       transition: .15s ease;
     }
-    .nav-toggle:hover{ background: rgba(0,0,0,.24); }
+    .nav-toggle:hover{ background: rgba(255,255,255,.62); }
     .nav-toggle:focus{
-      outline: 2px solid rgba(255,255,255,.30);
+      outline: 2px solid rgba(0,0,0,.25);
       outline-offset: 2px;
     }
 
     /* ===== SECTIONS ===== */
     section{
       padding: 64px 0;
-      border-bottom: 1px solid rgba(255,255,255,.18);
+      border-bottom: 1px solid var(--line);
     }
     .kicker{
       margin:0 0 10px;
@@ -200,7 +184,7 @@
       text-transform: uppercase;
       font-weight: 900;
       font-size: 12px;
-      color: rgba(255,255,255,.82);
+      color: var(--muted);
     }
     h1{
       margin:0 0 12px;
@@ -208,21 +192,21 @@
       line-height: 1.05;
       letter-spacing: -.02em;
       text-transform: uppercase;
-      color: #fff;
+      color: var(--text);
     }
     h2{
       margin:0 0 10px;
       font-size: clamp(24px, 2.6vw, 34px);
       line-height: 1.12;
-      color: #fff;
+      color: var(--text);
     }
     p{
       margin:0 0 14px;
-      color: rgba(255,255,255,.86);
+      color: var(--muted);
       font-size: 16px;
     }
     .lead{
-      color: rgba(255,255,255,.92);
+      color: rgba(0,0,0,.78);
       font-size: 18px;
       max-width: 70ch;
     }
@@ -236,8 +220,8 @@
     .hero__media{
       min-height: 300px;
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.20);
-      background: rgba(0,0,0,.14);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.40);
       box-shadow: var(--shadow);
       display:flex;
       align-items:flex-end;
@@ -250,8 +234,8 @@
       position:absolute;
       inset:0;
       background:
-        radial-gradient(700px 280px at 30% 20%, rgba(0,0,0,.18), transparent 55%),
-        radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.12), transparent 55%);
+        radial-gradient(700px 280px at 30% 20%, rgba(0,0,0,.06), transparent 55%),
+        radial-gradient(700px 280px at 70% 50%, rgba(0,0,0,.04), transparent 55%);
       pointer-events:none;
     }
     .hero__mediaContent{ position: relative; z-index: 1; }
@@ -268,22 +252,22 @@
       justify-content:center;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(0,0,0,.14);
-      color: #fff;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.45);
+      color: var(--text);
       font-weight: 900;
       font-size: 14px;
       transition: .15s ease;
     }
-    .btn:hover{ background: rgba(0,0,0,.20); }
+    .btn:hover{ background: rgba(255,255,255,.62); }
 
     .btn--primary{
-      background: rgba(0,0,0,.28);
-      color: #fff;
-      border-color: rgba(255,255,255,.22);
+      background: rgba(0,0,0,.10);
+      color: var(--text);
+      border-color: rgba(0,0,0,.18);
       box-shadow: var(--shadow);
     }
-    .btn--primary:hover{ filter: brightness(1.05); }
+    .btn--primary:hover{ background: rgba(0,0,0,.14); }
 
     .grid2{
       display:grid;
@@ -298,18 +282,18 @@
       margin-top: 12px;
     }
     .card{
-      border: 1px solid rgba(255,255,255,.20);
-      background: rgba(0,0,0,.12);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.40);
       border-radius: var(--radius);
       padding: 16px;
     }
-    .card h3{ margin:0 0 6px; font-size: 18px; color: #fff; }
-    .card p{ margin:0; font-size: 14px; color: rgba(255,255,255,.86); }
+    .card h3{ margin:0 0 6px; font-size: 18px; color: var(--text); }
+    .card p{ margin:0; font-size: 14px; color: rgba(0,0,0,.72); }
 
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
-      color: rgba(255,255,255,.86);
+      color: rgba(0,0,0,.72);
     }
     .list li{ margin: 8px 0; }
 
@@ -317,11 +301,11 @@
     .pill{
       padding: 10px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.20);
-      background: rgba(0,0,0,.12);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.45);
       font-weight: 900;
       font-size: 13px;
-      color: rgba(255,255,255,.92);
+      color: rgba(0,0,0,.78);
     }
 
     .split{
@@ -332,9 +316,9 @@
       margin-top: 14px;
     }
     .form{
-      border: 1px solid rgba(255,255,255,.20);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(0,0,0,.12);
+      background: rgba(255,255,255,.40);
       padding: 16px;
     }
     .label{
@@ -342,20 +326,20 @@
       font-weight: 900;
       font-size: 13px;
       margin:0 0 10px;
-      color: rgba(255,255,255,.92);
+      color: rgba(0,0,0,.86);
     }
     .input{
       width: 100%;
       margin-top: 6px;
       padding: 10px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(0,0,0,.18);
-      color: #fff;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
       outline: none;
     }
-    .input::placeholder{ color: rgba(255,255,255,.65); }
-    .input:focus{ border-color: rgba(255,255,255,.36); }
+    .input::placeholder{ color: rgba(0,0,0,.55); }
+    .input:focus{ border-color: rgba(0,0,0,.28); }
 
     footer{ padding: 26px 0; }
     .footer__inner{
@@ -364,11 +348,11 @@
       align-items:center;
       gap: 12px;
       flex-wrap: wrap;
-      color: rgba(255,255,255,.82);
+      color: var(--muted);
     }
 
     /* =======================
-       MOBILE (ESTÉTICO)
+       MOBILE
        ======================= */
     @media (max-width: 820px){
       .topbar__inner{
@@ -390,8 +374,8 @@
         padding-bottom: 10px;
       }
       .nav__link{
-        background: rgba(0,0,0,.14);
-        border: 1px solid rgba(255,255,255,.20);
+        background: rgba(255,255,255,.40);
+        border: 1px solid var(--line);
         padding: 12px 12px;
       }
       .wa__text{ display:none; }
@@ -411,15 +395,14 @@
     }
 
     /* =======================
-       BLOQUEO POR CONTRASEÑA (pantalla de acceso)
-       Nota: esto NO es seguridad real (cualquiera puede ver el HTML).
+       BLOQUEO POR CONTRASEÑA
        ======================= */
-    #site { display: none; } /* se muestra tras validar */
+    #site { display: none; }
 
     .lock-overlay{
       position: fixed;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255,106,0,.92), rgba(255,61,0,.92));
+      background: linear-gradient(180deg, rgba(255,210,163,.94), rgba(255,181,107,.94));
       display: grid;
       place-items: center;
       z-index: 9999;
@@ -427,9 +410,9 @@
     }
     .lock-card{
       width: min(520px, 100%);
-      border: 1px solid rgba(255,255,255,.22);
+      border: 1px solid var(--line);
       border-radius: 18px;
-      background: rgba(0,0,0,.18);
+      background: rgba(255,255,255,.55);
       box-shadow: var(--shadow);
       padding: 18px;
     }
@@ -438,11 +421,11 @@
       font-size: 18px;
       font-weight: 950;
       letter-spacing: .02em;
-      color: #fff;
+      color: var(--text);
     }
     .lock-sub{
       margin: 0 0 14px;
-      color: rgba(255,255,255,.82);
+      color: var(--muted);
       font-size: 14px;
     }
     .lock-row{
@@ -455,36 +438,32 @@
       flex: 1 1 240px;
       padding: 12px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(0,0,0,.18);
-      color: #fff;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.80);
+      color: var(--text);
       outline: none;
       font-size: 14px;
     }
-    .lock-input::placeholder{ color: rgba(255,255,255,.65); }
-    .lock-input:focus{ border-color: rgba(255,255,255,.36); }
+    .lock-input::placeholder{ color: rgba(0,0,0,.55); }
+    .lock-input:focus{ border-color: rgba(0,0,0,.28); }
 
     .lock-btn{
       flex: 0 0 auto;
       padding: 12px 14px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(0,0,0,.28);
-      color: #fff;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(0,0,0,.10);
+      color: var(--text);
       font-weight: 950;
       cursor: pointer;
     }
-    .lock-btn:hover{ filter: brightness(1.05); }
+    .lock-btn:hover{ background: rgba(0,0,0,.14); }
     .lock-error{
       margin-top: 10px;
-      color: #ffffff;
+      color: #b00020;
       font-weight: 900;
       font-size: 13px;
       display: none;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.22);
-      padding: 8px 10px;
-      border-radius: 12px;
     }
   </style>
 </head>
@@ -521,7 +500,7 @@
         <!-- Botón menú (solo se ve en móvil) -->
         <button class="nav-toggle" aria-controls="mainnav" aria-expanded="false">Menú</button>
 
-        <!-- Nav (desktop igual, en móvil se colapsa) -->
+        <!-- Nav -->
         <nav id="mainnav" class="nav" aria-label="Navegación principal">
           <a class="nav__link" href="#inicio">INICIO</a>
           <a class="nav__link" href="#sobre">SOBRE NOSOTROS</a>
@@ -570,7 +549,7 @@
           <div class="hero__media" aria-label="Presentación">
             <div class="hero__mediaContent">
               <strong style="display:block; font-size:16px;">Capacidad instalada</strong>
-              <p style="margin:6px 0 0; color:rgba(255,255,255,.86);">
+              <p style="margin:6px 0 0; color:rgba(0,0,0,.72);">
                 Tornos (incluye CNC), fresadoras, escoplos, cepillos industriales, balancines,
                 equipos de corte/soldadura/prensas, y tratamientos de endurecimiento.
               </p>
@@ -706,8 +685,8 @@
             Si tienen interés, puedo visitarlos en planta cuando ustedes dispongan para comentar detalles,
             responder consultas y relevar necesidades in situ.
           </p>
-          <p style="color:rgba(255,255,255,.92); font-weight:900;">
-            Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#fff;">Ing. Nicolás Devotto</span>.
+          <p style="color:rgba(0,0,0,.82); font-weight:900;">
+            Desde ya muchas gracias por tenernos en cuenta. Saluda: <span style="color:#000;">Ing. Nicolás Devotto</span>.
           </p>
 
           <div class="split">
@@ -738,7 +717,7 @@
               </label>
 
               <button class="btn btn--primary" type="button">Enviar</button>
-              <p style="margin-top:10px; font-size:13px; color:rgba(255,255,255,.78);">
+              <p style="margin-top:10px; font-size:13px; color:rgba(0,0,0,.60);">
                 (Luego conectamos este formulario a email o envío directo a WhatsApp.)
               </p>
             </form>
@@ -748,7 +727,7 @@
 
       <footer>
         <div class="container footer__inner">
-          <div><strong style="color:#fff;">TORNERIA DEVOTTO</strong></div>
+          <div><strong style="color:#000;">TORNERIA DEVOTTO</strong></div>
           <div>© <span id="year"></span></div>
         </div>
       </footer>
@@ -793,7 +772,6 @@
       }
     }
 
-    // Si ya validó antes, entra directo
     if (localStorage.getItem(KEY) === "1") {
       unlock();
     } else {
@@ -816,7 +794,6 @@
         toggle.setAttribute("aria-expanded", String(open));
       });
 
-      // Cerrar menú al tocar un link (móvil)
       nav.querySelectorAll("a").forEach(a => {
         a.addEventListener("click", () => {
           if (window.matchMedia("(max-width: 820px)").matches) {
